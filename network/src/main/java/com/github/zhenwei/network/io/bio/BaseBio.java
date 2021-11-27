@@ -22,8 +22,14 @@ public abstract class BaseBio {
     byte[] data = null;
     if (this.inputStream != null) {
       try {
-        data = new byte[inputStream.available()];
-        inputStream.read(data);
+        int available;
+        do {
+          //todo 发送完消息,单纯读input容易获取不到消息.
+          available = inputStream.available();
+          data = new byte[available];
+          int read = inputStream.read(data);
+          System.out.println("读取数据长度:" + read);
+        } while (available == 0);
       } catch (IOException e) {
         throw new Exception("bio client: read message error", e);
       }
