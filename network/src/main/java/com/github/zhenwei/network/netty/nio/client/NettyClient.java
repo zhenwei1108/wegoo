@@ -11,8 +11,11 @@ import io.netty.handler.logging.LoggingHandler;
 
 public class NettyClient {
 
+  private ChannelFuture future;
+
   public void client(String ip, int port) throws Exception {
-    Bootstrap client = new Bootstrap().group(new NioEventLoopGroup()).channel(NioSocketChannel.class)
+    Bootstrap client = new Bootstrap().group(new NioEventLoopGroup())
+        .channel(NioSocketChannel.class)
         .handler(
             new ChannelInitializer<NioSocketChannel>() {
               @Override
@@ -23,18 +26,31 @@ public class NettyClient {
                         new ClientMessageEncoderHandler(),
                         //输入 处理
                         new ClientMessageEncoderHandler()
-                        );
+                    );
 
 
               }
             });
-    ChannelFuture future = client.connect(ip, port).sync();
+    future = client.connect(ip, port).addListener(future -> {
+      if (future.isSuccess()) {
+        System.out.println("客户端启动");
+      } else {
+        System.out.println("客户端链接失败,断开链接");
+        close();
+      }
+    }).sync();
 
+  }
 
-
-
-    future.channel().closeFuture().sync();
-
+  public void close() {
+    if (future != null) {
+      try {
+        future.channel().closeFuture().sync();
+      } catch (Exception ignore) {
+      } finally {
+        future = null;
+      }
+    }
   }
 
 

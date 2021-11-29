@@ -17,7 +17,7 @@ public class BioServer implements Runnable {
    * 工作线程
    */
   static final ThreadPoolExecutor workerThreadPool = new ThreadPoolExecutor(1,
-      (Runtime.getRuntime().availableProcessors() + 1) >> 1, 10,
+      Math.max(1, Runtime.getRuntime().availableProcessors() >> 1), 10,
       TimeUnit.SECONDS, new LinkedBlockingQueue<>(200),
       new ThreadPoolExecutor.CallerRunsPolicy());
   /**
