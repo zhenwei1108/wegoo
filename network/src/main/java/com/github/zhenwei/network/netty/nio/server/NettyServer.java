@@ -36,9 +36,15 @@ public class NettyServer {
             );
           }
         });
-    ChannelFuture future = server.bind(port).sync();
+    ChannelFuture future = server.bind(port).addListener(result -> {
+      if (result.isSuccess()) {
+        System.out.println("服务启动成功");
+      } else {
+        System.out.println("服务启动失败");
+        System.exit(0);
+      }
+    }).sync();
     future.channel().closeFuture().sync();
-    System.out.println("服务端启动");
   }
 
 }
