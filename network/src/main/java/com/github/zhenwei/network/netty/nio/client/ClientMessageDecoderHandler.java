@@ -3,6 +3,7 @@ package com.github.zhenwei.network.netty.nio.client;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -15,14 +16,11 @@ public class ClientMessageDecoderHandler extends ByteToMessageDecoder {
       System.out.println("i'm decoder");
       byte[] data = new byte[readLen];
       in.readBytes(data);
-      out.add(new String(data, StandardCharsets.UTF_8));
+      System.out.println("客户端收到服务应答："+new String(data, StandardCharsets.UTF_8));
+      ctx.close();
     }
 
   }
 
-  @Override
-  public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-    System.out.println("client 收到消息:" + msg);
 
-  }
 }

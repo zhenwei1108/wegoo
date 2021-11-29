@@ -3,12 +3,30 @@ package com.github.zhenwei.network.netty.nio.server;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+
 
 public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
 
-  @Override
-  protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    //接受消息处理
+    @Override
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        //可读长度, 默认 1024字节后被分包
+        int readableLength = in.readableBytes();
+        byte[] data = new byte[readableLength];
+        in.readBytes(data);
+        String message = new String(data, StandardCharsets.UTF_8);
+        out.add(message);
+        ctx.writeAndFlush("i have received your message: " + message);
+        System.out.println("服务端收到并应答消息：" + message);
+    }
 
-  }
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        System.out.println("服务端处理错误");
+        cause.printStackTrace();
+        ctx.close();
+    }
 }

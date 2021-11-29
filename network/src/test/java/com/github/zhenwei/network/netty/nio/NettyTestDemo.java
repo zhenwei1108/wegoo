@@ -18,7 +18,7 @@ public class NettyTestDemo {
   @Test
   public void client() throws Exception {
     NettyClient nettyClient = new NettyClient();
-    nettyClient.client("localhost",port);
+    nettyClient.build("localhost",port).sendMessage("hello tony");
   }
 
 
