@@ -1,5 +1,6 @@
 package com.github.zhenwei.network.netty.nio.client;
 
+import com.github.zhenwei.network.netty.nio.client.future.ClientFutureHolder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -16,10 +17,8 @@ public class ClientMessageDecoderHandler extends ByteToMessageDecoder {
       System.out.println("i'm decoder");
       byte[] data = new byte[readLen];
       in.readBytes(data);
-      System.out.println("客户端收到服务应答："+new String(data, StandardCharsets.UTF_8));
-      ctx.close();
+      ClientFutureHolder.success(NettyClient.FUTURE_KEY,new String(data, StandardCharsets.UTF_8));
     }
-
   }
 
 
