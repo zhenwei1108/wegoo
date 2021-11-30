@@ -6,10 +6,10 @@ import io.netty.handler.codec.MessageToByteEncoder;
 
 import java.nio.charset.StandardCharsets;
 
-public class ServerMessageEncoderHandler extends MessageToByteEncoder {
+public class ServerMessageEncoderHandler extends MessageToByteEncoder<String> {
 
   @Override
-  protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
-    out.writeBytes(msg.toString().getBytes(StandardCharsets.UTF_8));
+  protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) throws Exception {
+    out.writeBytes(msg.getBytes(StandardCharsets.UTF_8));
   }
 }
