@@ -46,6 +46,11 @@ public class BasicBuffer {
         printBufferParam(buffer);
 
         buffer.flip();
+        //读消息
+        buffer.get();
+
+        //重置
+        buffer.clear();
         System.out.println("调用:flip");
         printBufferParam(buffer);
         return buffer;
@@ -64,7 +69,8 @@ public class BasicBuffer {
 
     public static void main(String[] args) {
         BasicBuffer basicBuffer = new BasicBuffer();
-        basicBuffer.getByteBuffer(10);
+        //不会自动扩容
+        basicBuffer.getByteBuffer(1024);
     }
 
 
