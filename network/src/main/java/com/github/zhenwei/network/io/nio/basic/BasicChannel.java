@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.FileChannel.MapMode;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
@@ -24,6 +26,12 @@ public class BasicChannel {
 
     FileInputStream inputStream = new FileInputStream(file);
     FileChannel inChannel = inputStream.getChannel();
+
+    /**
+     * 直接在内存中修改文件
+     */
+    MappedByteBuffer map = inChannel.map(MapMode.READ_WRITE, 0, 1);
+    map.put(0, (byte) 1);
 
 //    byte[] bytes = "this is test".getBytes(StandardCharsets.UTF_8);
 //    buffer.put(bytes);

@@ -14,6 +14,12 @@ import java.nio.ByteBuffer;
 public class BasicBuffer {
 
 
+    /**
+     * {@link com.sun.tools.hat.internal.parser.MappedReadBuffer}
+     * MappedReadBuffer 可以让文件在内存中直接修改, 不需要系统拷贝.
+     * @param length
+     * @return
+     */
     public ByteBuffer getByteBuffer(int length) {
         //设置 buffer 大小
         val buffer = ByteBuffer.allocate(length);
