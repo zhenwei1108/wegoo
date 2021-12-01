@@ -28,7 +28,8 @@ public class BasicChannel {
     FileChannel inChannel = inputStream.getChannel();
 
     /**
-     * 直接在内存中修改文件
+     * 直接在内存中修改
+     * 模式, 起始位置, 长度
      */
     MappedByteBuffer map = inChannel.map(MapMode.READ_WRITE, 0, 1);
     map.put(0, (byte) 1);
