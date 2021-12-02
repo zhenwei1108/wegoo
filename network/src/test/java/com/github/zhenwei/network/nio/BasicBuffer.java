@@ -1,4 +1,4 @@
-package com.github.zhenwei.network.io.nio.basic;
+package com.github.zhenwei.network.nio;
 
 import lombok.val;
 
