@@ -17,16 +17,23 @@ public class NioClient {
     client.configureBlocking(false);
     boolean connect = client.connect(new InetSocketAddress(ip, port));
     if (connect) {
+      //注册selector, 监听 read 事件
       client.register(selector, SelectionKey.OP_READ);
     }
     byte[] data = "hello word".getBytes(StandardCharsets.UTF_8);
+
+    ByteBuffer byteBuffer = ByteBuffer.wrap(data);
+    /*
+    //等同 wrap 操作
     ByteBuffer byteBuffer = ByteBuffer.allocate(data.length);
     byteBuffer.put(data);
+    */
     client.write(byteBuffer);
     byteBuffer.clear();
 
     //阻塞接收应答
     selector.select();
+    //获取所有, 被事件触发的 selectorKey
     Set<SelectionKey> selectionKeys = selector.selectedKeys();
     Iterator<SelectionKey> iterator = selectionKeys.iterator();
     ByteBuffer buffer = ByteBuffer.allocate(1024);
@@ -47,6 +54,7 @@ public class NioClient {
       }
     }
   }
+
 
 
 }
