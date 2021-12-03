@@ -1,4 +1,4 @@
-package com.github.zhenwei.network.nio;
+package com.github.zhenwei.network.nio.basic;
 
 
 import java.io.File;
@@ -79,7 +79,7 @@ public class BasicChannel {
    * @see sun.nio.ch.ServerSocketChannelImpl
    * @see sun.nio.ch.SocketChannelImpl
    */
-  public void networkChannel(int port) throws Exception {
+  public void SocketChannel(int port) throws Exception {
     ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
     SocketAddress socketAddress = new InetSocketAddress(port);
     serverSocketChannel.bind(socketAddress);
@@ -112,7 +112,7 @@ public class BasicChannel {
   public static void main(String[] args) throws Exception {
     BasicChannel basicChannel = new BasicChannel();
 //    basicChannel.fileChannel(false);
-    basicChannel.networkChannel(18088);
+    basicChannel.SocketChannel(18088);
   }
 
 
