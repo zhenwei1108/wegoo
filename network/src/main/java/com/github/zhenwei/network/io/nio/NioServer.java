@@ -26,6 +26,8 @@ public class NioServer {
       //获取到有事件发生的的集合
       Set<SelectionKey> selectionKeys = selector.selectedKeys();
       System.out.println("哇! 有事件发生:" + selectionKeys.size());
+      Set<SelectionKey> keys = selector.keys();
+      System.out.println("所有 SelectionKey 的数量:" + keys.size());
       /**
        * 此处必须使用iterator, 后续进行remove当前key
        * 防止多线程并发问题
