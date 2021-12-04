@@ -66,7 +66,10 @@ public class BasicChannel {
         //从inChannel中直接拷贝到outChannel
         position = inChannel.transferTo(position, inChannel.size(), outChannel);
         position = outChannel.transferFrom(inChannel, position, inChannel.size());
-      } while (position != 0);
+        //剩余数量 = 总数 - 已传输的数量
+        position = inChannel.size() - position;
+
+      } while (position > 0);
 
 
     } else {
