@@ -54,7 +54,8 @@ public class BasicBuffer {
         buffer.flip();
         //读消息
         buffer.get();
-
+        //倒带.position = 0. 重读或重写.
+        buffer.rewind();
         //重置
         buffer.clear();
         System.out.println("调用:flip");

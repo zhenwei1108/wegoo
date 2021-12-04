@@ -24,7 +24,7 @@ import lombok.val;
  */
 public class BasicChannel {
 
-  public void fileChannel(boolean useBuffer) throws IOException {
+  public void fileChannel(boolean useZeroCopy) throws IOException {
 
     File file = new File("/opt/data/channelDemo");
     //文件目录, 追加写
@@ -49,12 +49,29 @@ public class BasicChannel {
 //    outChannel.write(buffer);
 
 //    buffer.clear();
-    ByteBuffer buffer = ByteBuffer.allocate(3);
+    //两种拷贝方式
+    if (useZeroCopy) {
+      /**
+       * 零拷贝到 socket
+       * inChannel.transferTo(0, inChannel.size(), socketChannel);
+       * 注意: 有大小限制.
+       *  直接拷贝,限制 2G.
+       * {@linkplain sun.nio.ch.FileChannelImpl#transferTo(long, long, WritableByteChannel)}
+       *  拷贝到socket,限制 8M
+       * {@linkplain sun.nio.ch.FileChannelImpl#transferToTrustedChannel(long, long, WritableByteChannel)}
+       */
 
-    if (!useBuffer) {
-      inChannel.transferFrom(outChannel, 0, inChannel.size());
+      long position = 0;  //当前拷贝的位置
+      do {
+        //从inChannel中直接拷贝到outChannel
+        position = inChannel.transferTo(position, inChannel.size(), outChannel);
+        position = outChannel.transferFrom(inChannel, position, inChannel.size());
+      } while (position != 0);
+
+
     } else {
-
+      //原始读写方式.
+      ByteBuffer buffer = ByteBuffer.allocate(3);
       while (inChannel.read(buffer) != -1) {
         //转换
         buffer.flip();
