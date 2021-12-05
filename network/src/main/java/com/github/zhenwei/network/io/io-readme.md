@@ -8,6 +8,7 @@ IO: input/output
 
 ## NIO(Non-Blocking IO: 同步非阻塞IO)
 从Java1.4开始支持. 面向缓冲区.
+有一个selector 空轮询的bug,导致CPU 100%.
 * Channel: 通道. 可以进行读写,与buffer进行数据交互
 * ByteBuffer: 缓冲区. 负责数据的存储.
 * Selector: 选择器. 监听 channel 进行数据处理. 由事件(event)驱动
@@ -16,7 +17,8 @@ IO: input/output
 相当于使用一个线程处理多个客户端连接(区别于BIO).
 Http2.0实现了多路复用.
 
-## AIO
+## AIO(Asynchronous IO: 异步非阻塞IO)
+JDK 7 引入.Reactor 和 Proactor 两种模式
 
 
 

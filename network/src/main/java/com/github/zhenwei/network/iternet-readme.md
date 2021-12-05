@@ -2,7 +2,9 @@
 ## 推荐书籍(排名无先后)
 1. Java网络编程
 2. TCP-IP详解
-
+## 分类
+* BIO/NIO/AIO. [点我,看详细介绍](./io/io-readme.md)
+* Netty主要基于NIO实现.
 ## 网络分层
 
 * 应用层
