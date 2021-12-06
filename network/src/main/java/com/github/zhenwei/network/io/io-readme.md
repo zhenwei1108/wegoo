@@ -18,7 +18,8 @@ IO: input/output
 Http2.0实现了多路复用.
 
 ## AIO(Asynchronous IO: 异步非阻塞IO)
-JDK 7 引入.Reactor 和 Proactor 两种模式
+JDK 7 引入.
+主要分: Reactor 和 Proactor 两种模式
 
 
 
