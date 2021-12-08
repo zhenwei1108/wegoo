@@ -20,7 +20,9 @@ public class NettyClient {
   public static final String FUTURE_KEY = "i'm demo key";
 
   public NettyClient build(String ip, int port) throws Exception {
-    Bootstrap client = new Bootstrap().group(new NioEventLoopGroup())
+    //客户端尽量设置为1,防止句柄占用
+    NioEventLoopGroup group = new NioEventLoopGroup(1);
+    Bootstrap client = new Bootstrap().group(group)
         .channel(NioSocketChannel.class)
         .option(ChannelOption.SO_KEEPALIVE, true)
         .handler(
