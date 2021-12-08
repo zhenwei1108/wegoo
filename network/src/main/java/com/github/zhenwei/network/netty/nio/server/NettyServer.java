@@ -16,7 +16,10 @@ public class NettyServer {
 
     public void server(int port) throws InterruptedException {
         NioEventLoopGroup boss = new NioEventLoopGroup(1);
-        NioEventLoopGroup worker = new NioEventLoopGroup();
+      /**
+       * NioEventLoop 默认数量: NettyRuntime.availableProcessors() * 2
+       */
+      NioEventLoopGroup worker = new NioEventLoopGroup();
         ServerBootstrap server = new ServerBootstrap().group(boss, worker)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.AUTO_CLOSE, true)
