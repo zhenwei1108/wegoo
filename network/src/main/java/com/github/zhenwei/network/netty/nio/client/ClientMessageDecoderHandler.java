@@ -17,9 +17,16 @@ public class ClientMessageDecoderHandler extends ByteToMessageDecoder {
       System.out.println("i'm decoder");
       byte[] data = new byte[readLen];
       in.readBytes(data);
-      ClientFutureHolder.success(NettyClient.FUTURE_KEY,new String(data, StandardCharsets.UTF_8));
+      ClientFutureHolder.success(NettyClient.FUTURE_KEY, new String(data, StandardCharsets.UTF_8));
     }
   }
 
 
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+//    System.out.println("客户端异常");
+//    cause.printStackTrace();
+    ClientFutureHolder.fail(NettyClient.FUTURE_KEY, cause);
+    ctx.close();
+  }
 }

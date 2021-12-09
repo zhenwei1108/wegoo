@@ -18,8 +18,13 @@ public class ClientFutureHolder {
       ClienMessageFuture future = map.get(key);
       future.setSuccess(message);
     }
-
   }
 
+  public static void fail(Object key,Throwable throwable){
+    if (map.containsKey(key)) {
+      map.get(key).setFailure(throwable);
+      map.remove(key);
+    }
+  }
 
 }

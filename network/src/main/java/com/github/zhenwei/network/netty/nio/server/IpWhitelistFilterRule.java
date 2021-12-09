@@ -18,6 +18,7 @@ public class IpWhitelistFilterRule implements IpFilterRule {
 
   static {
     WHITE_LIST.put("127.0.0.1".hashCode(), "127.0.0.1");
+//    WHITE_LIST.put("localhost".hashCode(), "localhost");
   }
 
 
@@ -28,10 +29,11 @@ public class IpWhitelistFilterRule implements IpFilterRule {
   }
 
   /**
-   * 只允许本机访问
+   * 若不在白名单范围内,则拒绝链接
    */
   @Override
   public IpFilterRuleType ruleType() {
+    System.out.println("嘻嘻");
     return IpFilterRuleType.REJECT;
   }
 }
