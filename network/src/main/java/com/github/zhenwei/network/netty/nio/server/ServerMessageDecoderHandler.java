@@ -21,6 +21,18 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
         out.add(message);
         ctx.writeAndFlush("i have received your message: " + message);
         System.out.println("服务端收到并应答消息：" + message);
+
+        /**
+         * 异步执行
+         */
+        ctx.pipeline().channel().eventLoop().execute(new Runnable() {
+            @Override
+            public void run() {
+                ctx.write("runnable ");
+            }
+        });
+
+
     }
 
     @Override
