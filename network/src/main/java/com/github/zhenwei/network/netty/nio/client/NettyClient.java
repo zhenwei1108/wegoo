@@ -24,13 +24,14 @@ public class NettyClient {
     NioEventLoopGroup group = new NioEventLoopGroup(1);
     Bootstrap client = new Bootstrap().group(group)
         .channel(NioSocketChannel.class)
+        .handler(new LoggingHandler(LogLevel.TRACE))
         .option(ChannelOption.SO_KEEPALIVE, true)
         .handler(
             new ChannelInitializer<NioSocketChannel>() {
               @Override
               protected void initChannel(NioSocketChannel channel) throws Exception {
                 channel.pipeline()
-                    .addLast(new LoggingHandler(LogLevel.TRACE),
+                    .addLast(
                         //输出 处理
                         new ClientMessageEncoderHandler(),
                         //输入 处理

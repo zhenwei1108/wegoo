@@ -25,12 +25,12 @@ public class NettyServer {
         .channel(NioServerSocketChannel.class)
         .option(ChannelOption.AUTO_CLOSE, true)
         .option(ChannelOption.SO_BACKLOG,128)
+        //日志
+        .handler(new LoggingHandler(LogLevel.TRACE))
         .childHandler(new ChannelInitializer<SocketChannel>() {
           @Override
           protected void initChannel(SocketChannel sc) throws Exception {
             sc.pipeline().addLast(
-                //日志
-                new LoggingHandler(LogLevel.TRACE),
                 //IP 过滤
                 new RuleBasedIpFilter(new IpWhitelistFilterRule()),
                 //接收消息 处理
