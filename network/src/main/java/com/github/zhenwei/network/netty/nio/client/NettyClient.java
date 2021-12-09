@@ -24,7 +24,7 @@ public class NettyClient {
     NioEventLoopGroup group = new NioEventLoopGroup(1);
     Bootstrap client = new Bootstrap().group(group)
         .channel(NioSocketChannel.class)
-        .handler(new LoggingHandler(LogLevel.TRACE))
+        .handler(new LoggingHandler(LogLevel.DEBUG))
         .option(ChannelOption.SO_KEEPALIVE, true)
         .handler(
             new ChannelInitializer<NioSocketChannel>() {
@@ -37,8 +37,6 @@ public class NettyClient {
                         //输入 处理
                         new ClientMessageDecoderHandler()
                     );
-
-
               }
             });
     future = client.connect(ip, port).addListener(future -> {

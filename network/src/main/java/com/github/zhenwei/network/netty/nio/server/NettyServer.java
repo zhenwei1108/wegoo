@@ -19,6 +19,7 @@ public class NettyServer {
     /**
      * NioEventLoop 默认数量: NettyRuntime.availableProcessors() * 2
      * CPU核心数量 * 2
+     *  NioEventLoop 中包含 taskQueueFactory 任务队列工程
      */
     NioEventLoopGroup worker = new NioEventLoopGroup();
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)

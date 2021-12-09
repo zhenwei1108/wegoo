@@ -27,6 +27,10 @@ public class ClientMessageDecoderHandler extends ByteToMessageDecoder {
 //    System.out.println("客户端异常");
 //    cause.printStackTrace();
     ClientFutureHolder.fail(NettyClient.FUTURE_KEY, cause);
+    System.out.println("关闭链接");
     ctx.close();
   }
+
+
+
 }

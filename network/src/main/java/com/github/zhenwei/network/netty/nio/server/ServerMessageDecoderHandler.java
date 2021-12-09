@@ -29,4 +29,9 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
         cause.printStackTrace();
         ctx.close();
     }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("消息读取完毕后,执行此方法");
+    }
 }
