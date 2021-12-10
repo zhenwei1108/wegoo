@@ -31,6 +31,7 @@ public class NettyServer {
         .childHandler(new ChannelInitializer<SocketChannel>() {
           @Override
           protected void initChannel(SocketChannel sc) throws Exception {
+            //拿到客户端链接的 channel.类似accept操作.
             sc.pipeline().addLast(
                 //IP 过滤
                 new RuleBasedIpFilter(new IpWhitelistFilterRule()),

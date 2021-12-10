@@ -3,7 +3,6 @@ package com.github.zhenwei.network.netty.nio.server;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -21,18 +20,6 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
         out.add(message);
         ctx.writeAndFlush("i have received your message: " + message);
         System.out.println("服务端收到并应答消息：" + message);
-
-        /**
-         * 异步执行
-         */
-        ctx.pipeline().channel().eventLoop().execute(new Runnable() {
-            @Override
-            public void run() {
-                ctx.write("runnable ");
-            }
-        });
-
-
     }
 
     @Override

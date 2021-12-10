@@ -18,7 +18,7 @@ public class IpWhitelistFilterRule implements IpFilterRule {
 
   static {
     WHITE_LIST.put("127.0.0.1".hashCode(), "127.0.0.1");
-//    WHITE_LIST.put("localhost".hashCode(), "localhost");
+    WHITE_LIST.put("localhost".hashCode(), "localhost");
   }
 
 
