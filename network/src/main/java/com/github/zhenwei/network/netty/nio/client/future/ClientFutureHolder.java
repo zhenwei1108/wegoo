@@ -27,4 +27,9 @@ public class ClientFutureHolder {
     }
   }
 
+
+  public static void remove(Object key){
+    map.remove(key);
+  }
+
 }
