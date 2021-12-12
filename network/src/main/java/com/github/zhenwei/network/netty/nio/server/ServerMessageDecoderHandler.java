@@ -2,7 +2,10 @@ package com.github.zhenwei.network.netty.nio.server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import io.netty.util.concurrent.GlobalEventExecutor;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -12,6 +15,11 @@ import java.util.List;
  * 使用 Unpooled操作ByteBuf.
  */
 public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
+
+    /**
+     * 管理所有链接,并可以统一进行处理
+     */
+    private ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     //接受消息处理
     @Override
@@ -37,4 +45,19 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("消息读取完毕后,执行此方法");
     }
+
+
+    /**
+     * 链接被建立时候,触发此方法
+     * @param ctx
+     * @throws Exception
+     */
+    @Override
+    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+        //遍历所有的 channel,并发送消息.
+        channels.writeAndFlush("ctx:"+ctx+" connected");
+        channels.add(ctx.channel());
+    }
+
+
 }
