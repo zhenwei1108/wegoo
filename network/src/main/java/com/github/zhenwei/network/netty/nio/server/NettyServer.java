@@ -10,6 +10,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.ipfilter.RuleBasedIpFilter;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+import java.util.concurrent.TimeUnit;
 
 public class NettyServer {
 
@@ -26,7 +28,7 @@ public class NettyServer {
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)
         .channel(NioServerSocketChannel.class)
         .option(ChannelOption.AUTO_CLOSE, true)
-        .option(ChannelOption.SO_BACKLOG,256)
+        .option(ChannelOption.SO_BACKLOG, 256)
         //handler 为 boss group 适配.
         //日志
         .handler(new LoggingHandler(LogLevel.TRACE))
@@ -42,6 +44,11 @@ public class NettyServer {
             sc.pipeline().addLast(
                 //IP 过滤
                 new RuleBasedIpFilter(new IpWhitelistFilterRule()),
+                //心跳检测 读3s,写 5s, 空闲 7s.
+                //触发后,会转发给下一个handler 的 userEventTriggered 方法进行处理
+                new IdleStateHandler(3, 5, 7, TimeUnit.SECONDS),
+                //心跳处理
+                new HeartbeatHandler(),
                 //接收消息 处理
                 new ServerMessageEncoderHandler(),
                 //应答消息处理
