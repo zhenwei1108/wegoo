@@ -6,13 +6,17 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-
+/**
+ *
+ * @see io.netty.buffer.Unpooled
+ * 使用 Unpooled操作ByteBuf.
+ */
 public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
 
     //接受消息处理
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        //可读长度, 默认 1024字节后被分包
+        //可读长度, 默认 2048? 字节后被分包
         int readableLength = in.readableBytes();
         byte[] data = new byte[readableLength];
         in.readBytes(data);

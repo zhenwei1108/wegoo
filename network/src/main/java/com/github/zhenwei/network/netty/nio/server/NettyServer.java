@@ -20,18 +20,25 @@ public class NettyServer {
      * NioEventLoop 默认数量: NettyRuntime.availableProcessors() * 2
      * CPU核心数量 * 2
      *  NioEventLoop 中包含 taskQueueFactory 任务队列工程
+     *  每个EventLoop包含一个selector,进行任务处理.由next方法将handler注册到selector上.
      */
     NioEventLoopGroup worker = new NioEventLoopGroup();
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)
         .channel(NioServerSocketChannel.class)
         .option(ChannelOption.AUTO_CLOSE, true)
-        .option(ChannelOption.SO_BACKLOG,128)
+        .option(ChannelOption.SO_BACKLOG,256)
+        //handler 为 boss group 适配.
         //日志
         .handler(new LoggingHandler(LogLevel.TRACE))
+        // childHandler 为 worker 适配. 参考strap的group方法
         .childHandler(new ChannelInitializer<SocketChannel>() {
           @Override
           protected void initChannel(SocketChannel sc) throws Exception {
             //拿到客户端链接的 channel.类似accept操作.
+            /**
+             * handler 被封装为了{@link io.netty.channel.DefaultChannelHandlerContext},存放进了pipline.
+             * context是一个双向链表. 所以add的顺序不可以所以调节,避免影响消息处理方式
+             */
             sc.pipeline().addLast(
                 //IP 过滤
                 new RuleBasedIpFilter(new IpWhitelistFilterRule()),
