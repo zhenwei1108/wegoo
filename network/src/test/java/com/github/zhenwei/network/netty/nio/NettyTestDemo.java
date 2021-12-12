@@ -18,7 +18,8 @@ public class NettyTestDemo {
   @Test
   public void client() throws Exception {
     NettyClient nettyClient = new NettyClient();
-    String message = nettyClient.build("localhost", port).sendMessage("hello tony").readMessage();
+    String data ="hello tony ";
+    String message = nettyClient.build("localhost", port).sendMessage(data).readMessage();
     System.out.println("客户端收到应答:" + message);
     nettyClient.close();
 
