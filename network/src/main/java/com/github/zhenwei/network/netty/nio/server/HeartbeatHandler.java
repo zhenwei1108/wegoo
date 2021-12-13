@@ -8,7 +8,7 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
 
   /**
    * {@link io.netty.handler.timeout.IdleStateHandler} 触发后,执行此方法
-   *
+   *  心跳机制处理
    * @param ctx
    * @param evt
    * @throws Exception
@@ -30,9 +30,9 @@ public class HeartbeatHandler extends ChannelInboundHandlerAdapter {
           break;
         default:
           break;
-
       }
-
+      //触发事件后,可以发送消息,保持链接.
+      ctx.write("");
     }
 
 

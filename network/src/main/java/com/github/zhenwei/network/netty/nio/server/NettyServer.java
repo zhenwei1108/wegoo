@@ -1,5 +1,6 @@
 package com.github.zhenwei.network.netty.nio.server;
 
+import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -7,6 +8,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.ipfilter.RuleBasedIpFilter;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -42,6 +44,7 @@ public class NettyServer {
              * context是一个双向链表. 所以add的顺序不可以所以调节,避免影响消息处理方式
              */
             sc.pipeline().addLast(
+
                 //IP 过滤
                 new RuleBasedIpFilter(new IpWhitelistFilterRule()),
                 //心跳检测 读3s,写 5s, 空闲 7s.
@@ -51,6 +54,8 @@ public class NettyServer {
                 new HeartbeatHandler(),
                 //接收消息 处理
                 new ServerMessageEncoderHandler(),
+                //使用protbuf 进行对象传输
+                new ProtobufDecoder(PersionEntity.Persion.getDefaultInstance()),
                 //应答消息处理
                 new ServerMessageDecoderHandler()
 

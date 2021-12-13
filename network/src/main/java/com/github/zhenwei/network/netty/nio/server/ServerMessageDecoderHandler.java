@@ -1,5 +1,7 @@
 package com.github.zhenwei.network.netty.nio.server;
 
+import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
+import com.github.zhenwei.network.netty.nio.proto.PersionEntity.Persion;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.group.ChannelGroup;
@@ -35,6 +37,12 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
     }
 
     @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        PersionEntity.Persion persion = (Persion) msg;
+        System.out.println("收到客户端传入对象:"+persion);
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println("服务端处理错误");
         cause.printStackTrace();
@@ -44,6 +52,7 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("消息读取完毕后,执行此方法");
+
     }
 
 
