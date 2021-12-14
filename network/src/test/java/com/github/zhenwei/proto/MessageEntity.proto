@@ -1,0 +1,35 @@
+syntax = "proto3";
+option java_package = "com.github.zhenwei.proto";
+option java_outer_classname="MineMessage";
+
+// 执行命令: protoc MessageEntity.proto --java_out=/Users/...
+message MyMessage{
+
+
+  enum Type{
+    PERSON_TYPE = 0; //必须从 0 开始
+    WORKER_TYPE = 1;
+  }
+
+  //标识用那个枚举类型, 为MyMessage类中的第一个属性
+  Type type = 1;
+  //表示枚举类型最多出现几个,为MyMessage类中的第二个属性
+  oneof typeBody{
+    Person person = 2;
+    Worker worker = 3;
+  }
+  string message = 4;
+
+}
+
+message Person{
+  string name = 1;
+  int32 age = 3;
+  string addr = 4;
+}
+
+
+message Worker{
+  string handle = 1;
+  string workerTime = 2;
+}
