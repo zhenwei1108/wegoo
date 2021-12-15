@@ -24,6 +24,15 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
     private ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     //接受消息处理
+
+    /**
+     * 若接收消息过大, 则此方法会被调用多次. 默认1024?2048字节?
+     * 使用{@link io.netty.handler.codec.ReplayingDecoder} 解决分包问题
+     * @param ctx
+     * @param in
+     * @param out
+     * @throws Exception
+     */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         //可读长度, 默认 2048? 字节后被分包

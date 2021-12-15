@@ -13,6 +13,7 @@ import io.netty.handler.ipfilter.RuleBasedIpFilter;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import java.net.SocketAddress;
 import java.util.concurrent.TimeUnit;
 
 public class NettyServer {
@@ -28,6 +29,7 @@ public class NettyServer {
      */
     NioEventLoopGroup worker = new NioEventLoopGroup();
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)
+        //为channelFactory设置构造方法,在bind方法去具体构建,反射对象.
         .channel(NioServerSocketChannel.class)
         .option(ChannelOption.AUTO_CLOSE, true)
         .option(ChannelOption.SO_BACKLOG, 256)
@@ -62,6 +64,11 @@ public class NettyServer {
             );
           }
         });
+    /**
+     * 在{@linkplain io.netty.bootstrap.AbstractBootstrap#doBind(SocketAddress)}方法中.
+     * initAndRegister 先实例化ChannelFactory. 后对参数进行配置.
+     * 在doBind0中进行端口的绑定.
+     */
     ChannelFuture future = server.bind(port).addListener(result -> {
       if (result.isSuccess()) {
         System.out.println("服务启动成功,使用端口：" + port);
