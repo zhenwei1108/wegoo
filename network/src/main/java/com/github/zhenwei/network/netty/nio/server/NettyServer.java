@@ -3,6 +3,7 @@ package com.github.zhenwei.network.netty.nio.server;
 import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -25,7 +26,8 @@ public class NettyServer {
      * NioEventLoop 默认数量: NettyRuntime.availableProcessors() * 2
      * CPU核心数量 * 2
      *  NioEventLoop 中包含 taskQueueFactory 任务队列工程
-     *  每个EventLoop包含一个selector,进行任务处理.由next方法将handler注册到selector上.
+     *  每个EventLoop包含一个 selector,进行任务处理.由 next 方法将 handler 注册到selector上.
+     *  父类是一个 SingleThreadEventExecutor, 会被触发执行run()方法.其中包含selectorkey操作
      */
     NioEventLoopGroup worker = new NioEventLoopGroup();
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)
@@ -44,6 +46,8 @@ public class NettyServer {
             /**
              * handler 被封装为了{@link io.netty.channel.DefaultChannelHandlerContext},存放进了pipline.
              * context是一个双向链表. 所以add的顺序不可以所以调节,避免影响消息处理方式
+             * 在addLast操作时,{@link io.netty.channel.DefaultChannelPipeline#addLast(ChannelHandler...)}
+             * 会通过 newContext 创建一个 DefaultChannelHandlerContext 进行绑定
              */
             sc.pipeline().addLast(
 
