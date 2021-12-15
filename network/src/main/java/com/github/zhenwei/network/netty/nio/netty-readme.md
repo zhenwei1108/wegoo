@@ -14,3 +14,9 @@
 6. 将 NIOSocketChannel 注册到 Worker的Selector中.由Worker关注后续IO操作 如:Read/Write.
 7. Worker 将事件分配给 ChannelPipeline 的 Handler 队列 进行顺序处理.
 8. Handler进行具体业务处理.
+
+
+## 核心类
+* NioEventLoop
+* NioServerSocketChannel
+* DefaultChannelPipeline
