@@ -2,12 +2,15 @@ package com.github.zhenwei.network.netty.nio.server;
 
 import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.AbstractChannel;
 import io.netty.channel.AbstractChannelHandlerContext;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPromise;
+import io.netty.channel.EventLoop;
 import io.netty.channel.nio.AbstractNioMessageChannel.NioMessageUnsafe;
 import io.netty.channel.nio.NioEventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -39,6 +42,7 @@ public class NettyServer {
      *  从而进入decode方法和read等方法.
      *  channelRead在{@linkplain ServerBootstrap.ServerBootstrapAcceptor#channelRead(ChannelHandlerContext, Object)} 有特定实现.
      *  进行客户端链接channel的注册.register操作实际为从worker线程中选择一个进行绑定(需关注next()方法).
+     *  最终进入{@linkplain AbstractChannel.AbstractUnsafe#register(EventLoop, ChannelPromise)}
      *
      */
     NioEventLoopGroup worker = new NioEventLoopGroup();
