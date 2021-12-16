@@ -6,6 +6,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.nio.AbstractNioMessageChannel.NioMessageUnsafe;
+import io.netty.channel.nio.NioEventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -26,8 +28,10 @@ public class NettyServer {
      * NioEventLoop 默认数量: NettyRuntime.availableProcessors() * 2
      * CPU核心数量 * 2
      *  NioEventLoop 中包含 taskQueueFactory 任务队列工程
-     *  每个EventLoop包含一个 selector,进行任务处理.由 next 方法将 handler 注册到selector上.
-     *  父类是一个 SingleThreadEventExecutor, 会被触发执行run()方法.其中包含selectorkey操作
+     *  每个 EventLoop 包含一个 selector,进行任务处理.由 next 方法将 handler 注册到selector上.
+     *  父类是一个 SingleThreadEventExecutor, 会被触发执行 run() 方法.其中包含selectorkey操作
+     *  核心请关注:{@linkplain NioEventLoop#run()} 其中 processSelectedKeys()方法选择key.
+     *  根据 k.readyOps()获取不同的操作调用 unsafe(NioSocketChannelUnsafe) {@linkplain NioMessageUnsafe#read()}的不同方法.
      */
     NioEventLoopGroup worker = new NioEventLoopGroup();
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)
