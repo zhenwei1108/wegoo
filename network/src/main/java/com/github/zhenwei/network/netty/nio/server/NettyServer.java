@@ -2,8 +2,10 @@ package com.github.zhenwei.network.netty.nio.server;
 
 import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.AbstractChannelHandlerContext;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.AbstractNioMessageChannel.NioMessageUnsafe;
@@ -32,6 +34,12 @@ public class NettyServer {
      *  父类是一个 SingleThreadEventExecutor, 会被触发执行 run() 方法.其中包含selectorkey操作
      *  核心请关注:{@linkplain NioEventLoop#run()} 其中 processSelectedKeys()方法选择key.
      *  根据 k.readyOps()获取不同的操作调用 unsafe(NioSocketChannelUnsafe) {@linkplain NioMessageUnsafe#read()}的不同方法.
+     *  在read方法中.doReadMessages 进行accept()操作获取客户端链接的SocketChannel并存入list.
+     *  执行 pipeline.fireChannelRead() {@linkplain io.netty.channel.AbstractChannelHandlerContext#invokeChannelRead(AbstractChannelHandlerContext, Object)}
+     *  从而进入decode方法和read等方法.
+     *  channelRead在{@linkplain ServerBootstrap.ServerBootstrapAcceptor#channelRead(ChannelHandlerContext, Object)} 有特定实现.
+     *  进行客户端链接channel的注册.register操作实际为从worker线程中选择一个进行绑定(需关注next()方法).
+     *
      */
     NioEventLoopGroup worker = new NioEventLoopGroup();
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)
