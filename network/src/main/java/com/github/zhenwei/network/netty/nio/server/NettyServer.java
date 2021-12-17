@@ -68,7 +68,12 @@ public class NettyServer {
             sc.pipeline().addLast(
 
                 /**
-                 * 根据
+                 * 每个handler被封装为{@linkplain io.netty.channel.DefaultChannelHandlerContext}
+                 * 而 ChannelHandlerContext 实现两个接口,分别为:
+                 * @see io.netty.channel.ChannelInboundInvoker
+                 * @see io.netty.channel.ChannelOutboundInvoker
+                 *
+                 * 在addLast操作中 根据
                  * {@linkplain AbstractChannelHandlerContext#findContextInbound(int)}
                  * {@linkplain AbstractChannelHandlerContext#findContextOutbound(int)}
                  *  链表调用流程, 建议,addLast最后为InboundHandler.中间为OutboundHandler 并注意排序.
