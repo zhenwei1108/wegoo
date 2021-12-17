@@ -67,6 +67,12 @@ public class NettyServer {
              */
             sc.pipeline().addLast(
 
+                /**
+                 * 根据
+                 * {@linkplain AbstractChannelHandlerContext#findContextInbound(int)}
+                 * {@linkplain AbstractChannelHandlerContext#findContextOutbound(int)}
+                 *  链表调用流程, 建议,addLast最后为InboundHandler.中间为OutboundHandler 并注意排序.
+                 */
                 //IP 过滤
                 new RuleBasedIpFilter(new IpWhitelistFilterRule()),
                 //心跳检测 读3s,写 5s, 空闲 7s.
