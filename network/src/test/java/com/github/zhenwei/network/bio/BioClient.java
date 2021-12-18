@@ -1,4 +1,4 @@
-package com.github.zhenwei.network.io.bio;
+package com.github.zhenwei.network.bio;
 
 import java.io.IOException;
 import java.net.Socket;

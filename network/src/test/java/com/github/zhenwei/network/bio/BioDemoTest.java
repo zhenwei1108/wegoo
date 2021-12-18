@@ -1,7 +1,5 @@
 package com.github.zhenwei.network.bio;
 
-import com.github.zhenwei.network.io.bio.BioClient;
-import com.github.zhenwei.network.io.bio.BioServer;
 import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 

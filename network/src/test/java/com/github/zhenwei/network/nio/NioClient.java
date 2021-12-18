@@ -1,4 +1,4 @@
-package com.github.zhenwei.network.io.nio;
+package com.github.zhenwei.network.nio;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;

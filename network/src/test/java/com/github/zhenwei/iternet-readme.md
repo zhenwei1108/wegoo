@@ -4,7 +4,7 @@
 2. TCP-IP详解
 3. Scalable IO in Java
 ## 分类
-* BIO/NIO/AIO. [点我,看详细介绍](./io/io-readme.md)
+* BIO/NIO/AIO. [点我,看详细介绍](network/io/io-readme.md)
 * Netty主要基于NIO实现.
 ## 网络分层
 
