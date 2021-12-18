@@ -3,6 +3,7 @@ package com.github.zhenwei.network.netty.nio.server;
 import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
 import com.github.zhenwei.network.netty.nio.proto.PersionEntity.Persion;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -28,10 +29,7 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
     /**
      * 若接收消息过大, 则此方法会被调用多次. 默认1024?2048字节?
      * 使用{@link io.netty.handler.codec.ReplayingDecoder} 解决分包问题
-     * @param ctx
-     * @param in
-     * @param out
-     * @throws Exception
+     * {@linkplain io.netty.channel.AbstractChannelHandlerContext#fireChannelRead(Object)}} 触发
      */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
@@ -45,6 +43,9 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
         System.out.println("服务端收到并应答消息：" + message);
     }
 
+    /**
+     * 由 {@linkplain io.netty.channel.AbstractChannelHandlerContext#fireChannelRead(Object)} 触发
+     */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         PersionEntity.Persion persion = (Persion) msg;
@@ -58,6 +59,9 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
         ctx.close();
     }
 
+    /**
+     * 由 {@linkplain io.netty.channel.AbstractChannelHandlerContext#fireChannelReadComplete()} 触发
+     */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("消息读取完毕后,执行此方法");
@@ -67,8 +71,7 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
 
     /**
      * 链接被建立时候,触发此方法
-     * @param ctx
-     * @throws Exception
+     * {@linkplain io.netty.channel.DefaultChannelPipeline#addLast(ChannelHandler)} 触发
      */
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
