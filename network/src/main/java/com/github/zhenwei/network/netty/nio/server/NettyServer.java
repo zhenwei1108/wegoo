@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.EventLoop;
 import io.netty.channel.nio.NioEventLoop;
@@ -19,6 +20,8 @@ import io.netty.handler.ipfilter.RuleBasedIpFilter;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.concurrent.DefaultEventExecutorGroup;
+import io.netty.util.concurrent.RejectedExecutionHandlers;
 import java.net.SocketAddress;
 import java.util.concurrent.TimeUnit;
 
@@ -64,7 +67,8 @@ public class NettyServer {
              * 在addLast操作时,{@link io.netty.channel.DefaultChannelPipeline#addLast(ChannelHandler...)}
              * 会通过 newContext 创建一个 DefaultChannelHandlerContext 进行绑定
              */
-            sc.pipeline().addLast(
+            ChannelPipeline pipeline = sc.pipeline();
+            pipeline.addLast(
 
                 /**
                  * 每个handler被封装为{@linkplain io.netty.channel.DefaultChannelHandlerContext}
@@ -89,11 +93,18 @@ public class NettyServer {
                 //接收消息 处理
                 new ServerMessageEncoderHandler(),
                 //使用protbuf 进行对象传输
-                new ProtobufDecoder(PersionEntity.Persion.getDefaultInstance()),
-                //应答消息处理
-                new ServerMessageDecoderHandler()
+                new ProtobufDecoder(PersionEntity.Persion.getDefaultInstance())
+
 
             );
+            DefaultEventExecutorGroup group = new DefaultEventExecutorGroup(1);
+            /**
+             * 当指定 handler 执行的很慢时, 可以执行线程池进行异步处理.
+             * 建议自定义线程池
+             * 默认构造拒绝策略为: {@linkplain RejectedExecutionHandlers#reject()}
+             */
+            //应答消息处理
+            pipeline.addLast(group, new ServerMessageDecoderHandler());
           }
         });
     /**
