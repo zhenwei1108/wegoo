@@ -1,6 +1,6 @@
 # wegoo
 
-I'd like learn something about java, or can help you.
+one sdk, something about network.
 
-## internet 
+## basic 
 Mainly to learn [netty](https://github.com/zhenwei1108/netty.git) and assist other network knowledge.
