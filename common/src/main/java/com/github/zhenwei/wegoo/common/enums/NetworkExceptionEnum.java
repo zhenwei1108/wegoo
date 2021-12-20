@@ -2,6 +2,8 @@ package com.github.zhenwei.wegoo.common.enums;
 
 public enum NetworkExceptionEnum implements IException {
   NETWORK_ERR("network error", 899999),
+  SERVER_PORT_EMPTY_ERR("server port empty", 800001),
+  SERVER_START_ERR("server start error", 800002),
 
   ;
 
