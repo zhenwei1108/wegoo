@@ -2,6 +2,7 @@ package com.github.zhenwei.wegoo.common.exception;
 
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 
+
 public class NetworkException extends BaseException{
 
   public NetworkException(NetworkExceptionEnum iException) {
