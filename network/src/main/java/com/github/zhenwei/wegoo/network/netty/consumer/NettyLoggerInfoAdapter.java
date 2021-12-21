@@ -11,7 +11,8 @@ public class NettyLoggerInfoAdapter {
 
   private static final InternalLogger logger = InternalLoggerFactory.getInstance(
       NettyConsumerStartListener.class);
-  private static LogLevel level = LogLevel.WARN;
+  //todo 暂时设置为trace
+  private static LogLevel level = LogLevel.TRACE;//LogLevel.WARN;
 
 
   public static LogLevel getLogLevel() {

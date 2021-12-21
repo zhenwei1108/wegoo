@@ -18,6 +18,10 @@ public class NettyConsumer {
   private ServerBootstrap serverBootstrap;
   private NioEventLoopGroup boss, worker;
 
+  public static NettyConsumer getInstance(){
+    return new NettyConsumer();
+  }
+
   public <T> NettyConsumer option(ChannelOption<T> option, T value) {
     serverBootstrap.option(option, value);
     return this;
