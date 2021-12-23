@@ -2,6 +2,7 @@ package com.github.zhenwei.wegoo.network.netty.consumer;
 
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
+import com.github.zhenwei.wegoo.network.netty.consumer.listerner.NettyConsumerStartListener;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -27,11 +28,11 @@ public class NettyConsumer {
     return this;
   }
 
-  public NettyConsumer server() {
-    return server(0);
+  public NettyConsumer consume() {
+    return consume(0);
   }
 
-  public NettyConsumer server(int workerSize) {
+  public NettyConsumer consume(int workerSize) {
 
     //核心主线程 1 个
     boss = new NioEventLoopGroup(1);
@@ -54,7 +55,7 @@ public class NettyConsumer {
         throw new NetworkException(NetworkExceptionEnum.SERVER_PORT_EMPTY_ERR);
       }
       if(serverBootstrap == null){
-        server();
+        consume();
       }
       ChannelFuture future = serverBootstrap.bind(port).sync()
           .addListener(new NettyConsumerStartListener());

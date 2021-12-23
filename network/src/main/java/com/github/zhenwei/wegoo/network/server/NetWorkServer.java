@@ -10,7 +10,7 @@ import io.netty.channel.ChannelOption;
 public class NetWorkServer {
 
   public static void server(int port) throws NetworkException {
-    NettyConsumer.getInstance().server()
+    NettyConsumer.getInstance().consume()
         .option(ChannelOption.AUTO_CLOSE, true)
         .option(ChannelOption.SO_BACKLOG, 1024)
         .run(port);
