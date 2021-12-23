@@ -2,7 +2,9 @@ package com.github.zhenwei.wegoo.network.netty.consumer;
 
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
+import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
 import com.github.zhenwei.wegoo.network.netty.consumer.listerner.NettyConsumerStartListener;
+import com.github.zhenwei.wegoo.network.netty.provider.DefaultProviderChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -29,10 +31,10 @@ public class NettyConsumer {
   }
 
   public NettyConsumer consume() {
-    return consume(0);
+    return consume(0, new DefaultProviderChannelInitializer());
   }
 
-  public NettyConsumer consume(int workerSize) {
+  public NettyConsumer consume(int workerSize, NettyChannelInitializer channelInitializer) {
 
     //核心主线程 1 个
     boss = new NioEventLoopGroup(1);
@@ -44,7 +46,7 @@ public class NettyConsumer {
     serverBootstrap.group(boss, worker)
         .channel(NioServerSocketChannel.class)
         .handler(new LoggingHandler(NettyLoggerInfoAdapter.getLogLevel()))
-        .childHandler(new NettyConsumerChannelInitializer());
+        .childHandler(channelInitializer);
     return this;
   }
 

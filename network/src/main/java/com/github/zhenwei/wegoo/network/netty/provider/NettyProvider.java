@@ -2,11 +2,13 @@ package com.github.zhenwei.wegoo.network.netty.provider;
 
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
-import com.github.zhenwei.wegoo.network.netty.consumer.NettyLoggerInfoAdapter;
+import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
+import com.github.zhenwei.wegoo.network.netty.provider.listener.NettyProviderBindListener;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 /**
@@ -17,12 +19,16 @@ public class NettyProvider {
 
   private Bootstrap bootstrap;
 
-  public void provide(){
+  /**
+   * NettyLoggerInfoAdapter.getLogLevel()
+   * @param initializer
+   */
+  public void provide(NettyChannelInitializer initializer, LogLevel level){
     NioEventLoopGroup worker = new NioEventLoopGroup(1);
     bootstrap = new Bootstrap();
     bootstrap.group(worker).channel(NioSocketChannel.class)
-        .handler(new LoggingHandler(NettyLoggerInfoAdapter.getLogLevel()))
-        .handler(new NettyProviderChannelInitializer());
+        .handler(new LoggingHandler(level))
+        .handler(initializer);
   }
 
   public void operate(){
