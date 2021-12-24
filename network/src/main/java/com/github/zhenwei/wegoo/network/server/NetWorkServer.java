@@ -1,8 +1,6 @@
 package com.github.zhenwei.wegoo.network.server;
 
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
-import com.github.zhenwei.wegoo.network.netty.consumer.NettyConsumer;
-import io.netty.channel.ChannelOption;
 
 /**
  * 服务端
@@ -10,10 +8,6 @@ import io.netty.channel.ChannelOption;
 public class NetWorkServer {
 
   public static void server(int port) throws NetworkException {
-    NettyConsumer.getInstance().consume()
-        .option(ChannelOption.AUTO_CLOSE, true)
-        .option(ChannelOption.SO_BACKLOG, 1024)
-        .run(port);
   }
 
 
