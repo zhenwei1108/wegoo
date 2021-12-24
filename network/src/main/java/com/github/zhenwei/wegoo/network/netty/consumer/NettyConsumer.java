@@ -21,8 +21,6 @@ public abstract class NettyConsumer {
       NettyConsumerStartListener.class);
 
 
-
-
   public void consume(int workerSize, int port, NettyChannelInitializer channelInitializer,
       GenericFutureListener<ChannelPromise> listener, LogLevel level) throws NetworkException {
 
@@ -46,6 +44,12 @@ public abstract class NettyConsumer {
     }
   }
 
-  abstract NettyConsumer option(ServerBootstrap serverBootstrap);
+  /**
+   * @param [serverBootstrap]
+   * @description you can do everything from here
+   * @auther zhangzhenwei
+   * @date 2021/12/24 23:03
+   */
+  public abstract void option(ServerBootstrap serverBootstrap);
 
 }

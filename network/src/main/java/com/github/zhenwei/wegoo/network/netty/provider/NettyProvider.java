@@ -37,8 +37,14 @@ public abstract class NettyProvider {
     }
   }
 
-
-  abstract void option(Bootstrap bootstrap);
+  /**
+   * @param [serverBootstrap]
+   * @return com.github.zhenwei.wegoo.network.netty.consumer.NettyConsumer
+   * @description you can do everything from here
+   * @auther zhangzhenwei
+   * @date 2021/12/24 23:03
+   */
+  public abstract void option(Bootstrap bootstrap);
 
 
 }
