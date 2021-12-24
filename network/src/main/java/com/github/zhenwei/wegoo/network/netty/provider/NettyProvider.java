@@ -28,13 +28,18 @@ public abstract class NettyProvider {
     try {
       NioEventLoopGroup worker = new NioEventLoopGroup(1);
       Bootstrap bootstrap = new Bootstrap();
-      option(bootstrap);
-      bootstrap.group(worker).channel(NioSocketChannel.class)
+      options(bootstrap).group(worker).channel(NioSocketChannel.class)
           .handler(new LoggingHandler(level))
           .handler(initializer).bind(host, port).sync().addListener(listener);
     } catch (Exception e) {
       throw new NetworkException(NetworkExceptionEnum.CLIENT_BIND_ERR, e);
     }
+  }
+
+
+  public Bootstrap options(Bootstrap bootstrap){
+    option(bootstrap);
+    return bootstrap;
   }
 
   /**

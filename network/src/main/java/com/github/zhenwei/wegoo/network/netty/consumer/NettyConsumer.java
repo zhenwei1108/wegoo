@@ -31,8 +31,8 @@ public abstract class NettyConsumer {
           worker = new NioEventLoopGroup(workerSize);
 
       val serverBootstrap = new ServerBootstrap();
-      option(serverBootstrap);
-      val future = serverBootstrap.group(boss, worker)
+
+      val future = options(serverBootstrap).group(boss, worker)
           .channel(NioServerSocketChannel.class)
           .handler(new LoggingHandler(level))
           .childHandler(channelInitializer).bind(port).sync()
@@ -44,12 +44,21 @@ public abstract class NettyConsumer {
     }
   }
 
+  public ServerBootstrap options(ServerBootstrap serverBootstrap){
+    bossOption(serverBootstrap);
+    workerOption(serverBootstrap);
+    return serverBootstrap;
+  }
+
+
   /**
    * @param [serverBootstrap]
    * @description you can do everything from here
    * @auther zhangzhenwei
    * @date 2021/12/24 23:03
    */
-  public abstract void option(ServerBootstrap serverBootstrap);
+  public abstract void bossOption(ServerBootstrap serverBootstrap);
+
+  public abstract void workerOption(ServerBootstrap serverBootstrap);
 
 }
