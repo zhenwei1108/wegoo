@@ -1,8 +1,8 @@
 package com.github.zhenwei.network.netty.nio.server;
 
-import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.AbstractChannel;
+import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,7 +15,6 @@ import io.netty.channel.nio.NioEventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.ipfilter.RuleBasedIpFilter;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -51,7 +50,12 @@ public class NettyServer {
         //为channelFactory设置构造方法,在bind方法去具体构建,反射对象.
         .channel(NioServerSocketChannel.class)
         .option(ChannelOption.AUTO_CLOSE, true)
-        .option(ChannelOption.SO_BACKLOG, 256)
+        .option(ChannelOption.SO_BACKLOG, 4096)
+        .option(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator(4096,4096,4096))
+        .option(ChannelOption.SO_RCVBUF,4096)
+        .childOption(ChannelOption.SO_TIMEOUT,2000)
+        //设置worker的缓冲区
+//        .childOption(ChannelOption.SO_BACKLOG,4096)
         //handler 为 boss group 适配.
         //日志
         .handler(new LoggingHandler(LogLevel.TRACE))
@@ -90,10 +94,11 @@ public class NettyServer {
                 new IdleStateHandler(3, 5, 7, TimeUnit.SECONDS),
                 //心跳处理
                 new HeartbeatHandler(),
-                //接收消息 处理
+                //发送消息 处理
                 new ServerMessageEncoderHandler(),
-                //使用protbuf 进行对象传输
-                new ProtobufDecoder(PersionEntity.Persion.getDefaultInstance())
+                new ServerMessageDecoderHandler()
+//                //使用protbuf 进行对象传输
+//                new ProtobufDecoder(PersionEntity.Persion.getDefaultInstance())
 
 
             );

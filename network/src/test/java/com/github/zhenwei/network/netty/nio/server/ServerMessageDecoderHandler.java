@@ -1,7 +1,5 @@
 package com.github.zhenwei.network.netty.nio.server;
 
-import com.github.zhenwei.network.netty.nio.proto.PersionEntity;
-import com.github.zhenwei.network.netty.nio.proto.PersionEntity.Persion;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -41,7 +39,7 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
     String message = new String(data, StandardCharsets.UTF_8);
     out.add(message);
     ctx.writeAndFlush("i have received your message: " + message);
-    System.out.println("服务端收到并应答消息：" + message);
+    System.out.println("1服务端收到并应答消息：" + message);
   }
 
   /**
@@ -49,13 +47,13 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
    */
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
-    group.execute(() -> {
-      //异步处理
-      PersionEntity.Persion persion = (Persion) msg;
-      System.out.println("收到客户端传入对象:" + persion);
-    });
-
+    System.out.println("老子覆盖了父类的实现,不会调用本实现的decode方法");
+//    group.execute(() -> {
+//      //异步处理
+//      PersionEntity.Persion persion = (Persion) msg;
+//      System.out.println("收到客户端传入对象:" + persion);
+//    });
+    ctx.writeAndFlush(msg);
   }
 
   @Override

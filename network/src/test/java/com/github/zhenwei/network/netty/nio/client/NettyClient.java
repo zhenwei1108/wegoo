@@ -4,6 +4,7 @@ package com.github.zhenwei.network.netty.nio.client;
 import com.github.zhenwei.network.netty.nio.client.future.ClienMessageFuture;
 import com.github.zhenwei.network.netty.nio.client.future.ClientFutureHolder;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -27,6 +28,13 @@ public class NettyClient {
         .channel(NioSocketChannel.class)
         .handler(new LoggingHandler(LogLevel.DEBUG))
         .option(ChannelOption.SO_KEEPALIVE, true)
+        .option(ChannelOption.AUTO_CLOSE, true)
+        //发送缓冲区大小, 内核参数: net.core.wmem_max
+        .option(ChannelOption.SO_SNDBUF,1024)
+        //禁用 Nagle算法
+        .option(ChannelOption.TCP_NODELAY,false)
+        //从缓冲区读取数据大小,自适应调整
+        .option(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator())
         .handler(
             new ChannelInitializer<NioSocketChannel>() {
               @Override
@@ -66,6 +74,7 @@ public class NettyClient {
 
   public NettyClient sendMessage(String message) throws InterruptedException {
     future.channel().writeAndFlush(message);
+    System.out.println("发送数据长度"+message.length());
     System.out.println("客户端发送数据：" + message);
     messageFuture = new ClienMessageFuture();
     ClientFutureHolder.add(FUTURE_KEY, messageFuture);
