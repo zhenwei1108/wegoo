@@ -3,7 +3,6 @@ package com.github.zhenwei.wegoo.network.netty.consumer;
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
-import com.github.zhenwei.wegoo.network.netty.consumer.listerner.NettyConsumerStartListener;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -11,15 +10,9 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.GenericFutureListener;
-import io.netty.util.internal.logging.InternalLogger;
-import io.netty.util.internal.logging.InternalLoggerFactory;
 import lombok.val;
 
 public abstract class NettyConsumer {
-
-  private static final InternalLogger logger = InternalLoggerFactory.getInstance(
-      NettyConsumerStartListener.class);
-
 
   public void consume(int workerSize, int port, NettyChannelInitializer channelInitializer,
       GenericFutureListener<ChannelPromise> listener, LogLevel level) throws NetworkException {
