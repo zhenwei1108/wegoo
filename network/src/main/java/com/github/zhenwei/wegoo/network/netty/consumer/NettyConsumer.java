@@ -45,10 +45,12 @@ public abstract class NettyConsumer {
   }
 
   public ServerBootstrap options(ServerBootstrap serverBootstrap){
-    bossOption(serverBootstrap);
-    workerOption(serverBootstrap);
+    option(serverBootstrap);
+    childOption(serverBootstrap);
     return serverBootstrap;
   }
+
+
 
 
   /**
@@ -57,8 +59,8 @@ public abstract class NettyConsumer {
    * @auther zhangzhenwei
    * @date 2021/12/24 23:03
    */
-  public abstract void bossOption(ServerBootstrap serverBootstrap);
+  public abstract void option(ServerBootstrap serverBootstrap);
 
-  public abstract void workerOption(ServerBootstrap serverBootstrap);
+  public abstract void childOption(ServerBootstrap serverBootstrap);
 
 }
