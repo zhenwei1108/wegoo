@@ -2,14 +2,16 @@ package com.github.zhenwei.wegoo.network.netty.provider;
 
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
-import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.GenericFutureListener;
+import lombok.val;
 
 /**
  * @description: 提供者
@@ -17,17 +19,16 @@ import io.netty.util.concurrent.GenericFutureListener;
  */
 public abstract class NettyProvider {
 
-
   /**
    * NettyLoggerInfoAdapter.getLogLevel()
    *
    * @param initializer
    */
-  public void provide(String host, int port, NettyChannelInitializer initializer,
+  public void provide(String host, int port, ChannelInitializer<SocketChannel> initializer,
       GenericFutureListener<ChannelPromise> listener, LogLevel level) throws NetworkException {
     try {
-      NioEventLoopGroup worker = new NioEventLoopGroup(1);
-      Bootstrap bootstrap = new Bootstrap();
+      val worker = new NioEventLoopGroup(1);
+      val bootstrap = new Bootstrap();
       options(bootstrap).group(worker).channel(NioSocketChannel.class)
           .handler(new LoggingHandler(level))
           .handler(initializer).bind(host, port).sync().addListener(listener);

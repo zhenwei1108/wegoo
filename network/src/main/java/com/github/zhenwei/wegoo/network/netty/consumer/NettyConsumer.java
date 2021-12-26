@@ -2,10 +2,11 @@ package com.github.zhenwei.wegoo.network.netty.consumer;
 
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
-import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -14,10 +15,24 @@ import io.netty.util.internal.logging.InternalLogger;
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import lombok.val;
 
+/**
+ * @description: consumer 的抽象实现, 用于实现服务端
+ * @author: zhangzhenwei
+ * @date: 2021/12/26 21:46
+ */
 public abstract class NettyConsumer {
+
   private static final InternalLogger logger = InternalLoggerFactory.getInstance(
       NettyConsumer.class);
-  public void consume(int workerSize, int port, NettyChannelInitializer channelInitializer,
+
+  /**
+   * @param [workerSize, port, channelInitializer, listener, level]
+   * @return void
+   * @author zhangzhenwei
+   * @description netty consumer bind port
+   * @date 2021/12/26 21:46
+   */
+  public void consume(int workerSize, int port, ChannelInitializer<SocketChannel> channelInitializer,
       GenericFutureListener<ChannelPromise> listener, LogLevel level) throws NetworkException {
 
     try {

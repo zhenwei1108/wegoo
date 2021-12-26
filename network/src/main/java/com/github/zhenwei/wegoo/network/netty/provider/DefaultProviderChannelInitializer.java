@@ -1,7 +1,7 @@
 package com.github.zhenwei.wegoo.network.netty.provider;
 
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
-import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.ChannelPipeline;
 
 /**
  * @description: default impl for ChannelInitializer
@@ -12,7 +12,7 @@ import io.netty.channel.socket.SocketChannel;
 public class DefaultProviderChannelInitializer extends NettyChannelInitializer {
 
   @Override
-  protected void init(SocketChannel channel) throws Exception {
+  protected void init(ChannelPipeline pipeline) throws Exception {
     //do nothing
   }
 }
