@@ -10,10 +10,13 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.GenericFutureListener;
+import io.netty.util.internal.logging.InternalLogger;
+import io.netty.util.internal.logging.InternalLoggerFactory;
 import lombok.val;
 
 public abstract class NettyConsumer {
-
+  private static final InternalLogger logger = InternalLoggerFactory.getInstance(
+      NettyConsumer.class);
   public void consume(int workerSize, int port, NettyChannelInitializer channelInitializer,
       GenericFutureListener<ChannelPromise> listener, LogLevel level) throws NetworkException {
 
@@ -22,7 +25,7 @@ public abstract class NettyConsumer {
       NioEventLoopGroup boss = new NioEventLoopGroup(1),
           //默认业务处理线程 cpu*2
           worker = new NioEventLoopGroup(workerSize);
-
+      logger.info("netty server will start to use port: {}",port);
       val serverBootstrap = new ServerBootstrap();
 
       val future = options(serverBootstrap).group(boss, worker)
@@ -37,14 +40,11 @@ public abstract class NettyConsumer {
     }
   }
 
-  public ServerBootstrap options(ServerBootstrap serverBootstrap){
+  ServerBootstrap options(ServerBootstrap serverBootstrap){
     option(serverBootstrap);
     childOption(serverBootstrap);
     return serverBootstrap;
   }
-
-
-
 
   /**
    * @param [serverBootstrap]

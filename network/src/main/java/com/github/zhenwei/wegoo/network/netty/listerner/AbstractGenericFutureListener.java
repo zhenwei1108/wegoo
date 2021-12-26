@@ -2,31 +2,37 @@ package com.github.zhenwei.wegoo.network.netty.listerner;
 
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import io.netty.util.internal.logging.InternalLogger;
-import io.netty.util.internal.logging.InternalLoggerFactory;
 
 public abstract class AbstractGenericFutureListener<F extends Future<?>> implements
     GenericFutureListener<F> {
 
-  private static final InternalLogger logger = InternalLoggerFactory.getInstance(
-      NettyConsumerStartListener.class);
-
   @Override
   public void operationComplete(F future) throws Exception {
     if (future.isSuccess()) {
-      logger.info("server start success");
-      serverStartSuccess();
+      startSuccess();
     } else {
-      logger.error("server start fail");
-      serverStartFail();
+      startFail();
     }
   }
 
   /**
+   * @param []
+   * @return void
+   * @author zhangzhenwei
+   * @description 监听任务成功执行此操作
    * you can override this method
+   * @date 2021/12/26 21:23
    */
-  public abstract void serverStartSuccess();
+  public abstract void startSuccess();
 
-  public abstract void serverStartFail();
+  /**
+   * @param []
+   * @return void
+   * @author zhangzhenwei
+   * @description 监听任务失败执行此操作
+   * you can override this method
+   * @date 2021/12/26 21:23
+   */
+  public abstract void startFail();
 
 }

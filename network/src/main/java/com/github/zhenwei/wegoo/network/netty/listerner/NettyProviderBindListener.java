@@ -14,12 +14,12 @@ public class NettyProviderBindListener extends AbstractGenericFutureListener<Def
       NettyProviderBindListener.class);
 
   @Override
-  public void serverStartSuccess() {
-
+  public void startSuccess() {
+    logger.info("client bind port success");
   }
 
   @Override
-  public void serverStartFail() {
-
+  public void startFail() {
+    logger.info("client bind port fail");
   }
 }
