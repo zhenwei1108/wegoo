@@ -9,10 +9,10 @@ import java.util.List;
  * @author: zhangzhenwei
  * @date: 2021/12/26 21:56
  */
-public class DefaultByteToMessageDecoder extends ByteToMessageDecoder {
+public class DefaultByteToMessageDecoder extends ByteToMessageDecoder implements AbstractDecoder<ByteBuf>{
 
   @Override
-  protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+  public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
     
   }
 }

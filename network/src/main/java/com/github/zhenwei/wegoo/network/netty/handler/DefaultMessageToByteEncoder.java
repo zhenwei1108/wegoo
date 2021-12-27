@@ -9,7 +9,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @author: zhangzhenwei
  * @date: 2021/12/26 21:54
  */
-public class DefaultMessageToByteEncoder extends MessageToByteEncoder {
+public class DefaultMessageToByteEncoder extends MessageToByteEncoder implements AbstractEncoder{
 
   @Override
   protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {

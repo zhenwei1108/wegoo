@@ -1,6 +1,9 @@
 package com.github.zhenwei.wegoo.network.netty.consumer;
 
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
+import com.github.zhenwei.wegoo.network.netty.handler.AbstractDecoder;
+import com.github.zhenwei.wegoo.network.netty.handler.DefaultByteToMessageDecoder;
+import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.ipfilter.IpFilterRule;
 import io.netty.handler.ipfilter.IpFilterRuleType;
@@ -13,12 +16,25 @@ import java.util.function.Predicate;
  */
 public class DefaultConsumerChannelInitializer extends NettyChannelInitializer {
 
+  ChannelPipeline pipeline;
+
   @Override
   protected void init(ChannelPipeline pipeline) throws Exception {
     //do nothing
     if (predicate != null) {
       pipeline.addLast(new RuleBasedIpFilter(new DefaultIpFilterRule()));
     }
+    pipeline.addLast(new DefaultByteToMessageDecoder());
+
+
+  }
+
+  public <E> void addDecoder(AbstractDecoder<E> decoder) {
+    pipeline.addLast(decoder);
+  }
+
+  public void addHandler(ChannelInboundHandler handler) {
+    pipeline.addLast(handler);
   }
 
   private Predicate<Object> predicate;
