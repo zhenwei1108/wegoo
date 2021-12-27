@@ -8,17 +8,22 @@ import io.netty.handler.ipfilter.RuleBasedIpFilter;
 import java.net.InetSocketAddress;
 import java.util.function.Predicate;
 
-public class DefaultConsumerChannelInitialzer extends NettyChannelInitializer {
+/**
+ * @author zhangzhenwei
+ */
+public class DefaultConsumerChannelInitializer extends NettyChannelInitializer {
 
   @Override
   protected void init(ChannelPipeline pipeline) throws Exception {
     //do nothing
-    pipeline.addLast(new RuleBasedIpFilter(new DefaultIpFilterRule()));
+    if (predicate != null) {
+      pipeline.addLast(new RuleBasedIpFilter(new DefaultIpFilterRule()));
+    }
   }
 
   private Predicate<Object> predicate;
 
-  public DefaultConsumerChannelInitialzer predicate(Predicate<Object> predicate) {
+  public DefaultConsumerChannelInitializer predicate(Predicate<Object> predicate) {
     this.predicate = predicate;
     return this;
   }
