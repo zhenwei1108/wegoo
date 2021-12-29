@@ -48,12 +48,13 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     System.out.println("老子覆盖了父类的实现,不会调用本实现的decode方法");
+    super.channelRead(ctx, msg);
 //    group.execute(() -> {
 //      //异步处理
 //      PersionEntity.Persion persion = (Persion) msg;
 //      System.out.println("收到客户端传入对象:" + persion);
 //    });
-    ctx.writeAndFlush(msg);
+
   }
 
   @Override

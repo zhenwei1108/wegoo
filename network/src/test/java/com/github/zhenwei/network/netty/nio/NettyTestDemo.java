@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class NettyTestDemo {
 
-  int port = 10980;
+  int port = 10900;
 
   @Test
   public void server() throws InterruptedException {
