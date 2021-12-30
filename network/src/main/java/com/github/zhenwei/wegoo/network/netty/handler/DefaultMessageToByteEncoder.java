@@ -1,6 +1,8 @@
 package com.github.zhenwei.wegoo.network.netty.handler;
 
+import com.github.zhenwei.wegoo.network.entity.BaseMessage;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
@@ -9,10 +11,12 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @author: zhangzhenwei
  * @date: 2021/12/26 21:54
  */
-public class DefaultMessageToByteEncoder extends MessageToByteEncoder implements AbstractEncoder{
+@Sharable
+public class DefaultMessageToByteEncoder extends MessageToByteEncoder<BaseMessage> implements AbstractEncoder<BaseMessage>{
 
   @Override
-  protected void encode(ChannelHandlerContext ctx, Object msg, ByteBuf out) throws Exception {
-
+  public void encode(ChannelHandlerContext ctx, BaseMessage msg, ByteBuf out) throws Exception {
+    System.out.println(msg);
   }
+
 }
