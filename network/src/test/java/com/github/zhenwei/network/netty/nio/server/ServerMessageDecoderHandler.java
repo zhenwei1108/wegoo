@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.handler.codec.ByteToMessageDecoder;
+import io.netty.handler.codec.ReplayingDecoder;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @see io.netty.buffer.Unpooled 使用 Unpooled操作ByteBuf.
  */
-public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
+public class ServerMessageDecoderHandler extends ReplayingDecoder<Void> {
 
 
   private final NioEventLoopGroup group = new NioEventLoopGroup(16);
@@ -32,9 +32,10 @@ public class ServerMessageDecoderHandler extends ByteToMessageDecoder {
    */
   @Override
   protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+    //todo 根据 in.readerIndex();  in.writerIndex() 进行判断
+    //todo ReplayingDecoder 的bytebuf被调整
     //可读长度, 默认 2048? 字节后被分包
-    int readableLength = in.readableBytes();
-    byte[] data = new byte[readableLength];
+    byte[] data = new byte[11264];
     in.readBytes(data);
     String message = new String(data, StandardCharsets.UTF_8);
     out.add(message);
