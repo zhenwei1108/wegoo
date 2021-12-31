@@ -7,7 +7,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
+/**
+ * @see io.netty.handler.codec.ReplayingDecoder
+ */
 public class ServerMessageDecoderAsyncHandler extends ByteToMessageDecoder {
 
   //接受消息处理

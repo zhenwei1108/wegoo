@@ -33,7 +33,7 @@ public class ServerMessageDecoderHandler extends ReplayingDecoder<Void> {
   @Override
   protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
     //todo 根据 in.readerIndex();  in.writerIndex() 进行判断
-    //todo ReplayingDecoder 的bytebuf被调整
+    //todo ReplayingDecoder 的 bytebuf 第一次默认2048,第二次读取剩余的数据并和第一次的buf进行合并
     //可读长度, 默认 2048? 字节后被分包
     byte[] data = new byte[11264];
     in.readBytes(data);

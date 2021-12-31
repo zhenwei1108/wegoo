@@ -2,7 +2,6 @@ package com.github.zhenwei.network.netty.nio.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.AbstractChannel;
-import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -51,8 +50,8 @@ public class NettyServer {
         .channel(NioServerSocketChannel.class)
         .option(ChannelOption.AUTO_CLOSE, true)
         .option(ChannelOption.SO_BACKLOG, 4096)
-        .option(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator(4096,4096,4096))
-        .option(ChannelOption.SO_RCVBUF,4096)
+//        .option(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator(4096,4096,4096))
+//        .option(ChannelOption.SO_RCVBUF,4096)
         .childOption(ChannelOption.SO_TIMEOUT,2000)
         //设置worker的缓冲区
 //        .childOption(ChannelOption.SO_BACKLOG,4096)
