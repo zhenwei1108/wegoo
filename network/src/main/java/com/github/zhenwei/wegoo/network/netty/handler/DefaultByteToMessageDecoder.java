@@ -1,5 +1,9 @@
 package com.github.zhenwei.wegoo.network.netty.handler;
 
+import com.github.zhenwei.wegoo.network.entity.BaseMessage;
+import com.github.zhenwei.wegoo.network.entity.serialize.DefaultSerialize;
+import com.github.zhenwei.wegoo.network.entity.serialize.SerializeBean;
+import com.github.zhenwei.wegoo.network.entity.serialize.SerializeBean.SerializeMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,12 +21,22 @@ import java.util.List;
 public class DefaultByteToMessageDecoder extends ReplayingDecoder<Void> implements
     AbstractDecoder<ByteBuf> {
 
+  private SerializeMessage serializeMessage;
+
+  /**
+   * @param [ctx, in, out]
+   * @return void
+   * @author zhangzhenwei
+   * @description 序列化后将message传给下一个
+   * @date 2022/1/3 21:34
+   */
   @Override
   public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-    //todo 如何正确读取传入数据
     int bodyLen = in.readInt();
     byte[] body = new byte[bodyLen];
     in.readBytes(body);
-    System.out.println(in);
+    SerializeBean.build(body, BaseMessage.class,
+        serializeMessage == null ? new DefaultSerialize() : serializeMessage);
+    out.add(BaseMessage.seriaze(body));
   }
 }

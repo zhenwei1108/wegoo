@@ -1,9 +1,12 @@
 package com.github.zhenwei.wegoo.network.entity;
 
-public class ObjectMessage extends BaseMessage{
+import java.io.Serializable;
+
+public class ObjectMessage extends BaseMessage implements Serializable {
 
   @Override
   public byte[] getEncode() {
     return new byte[0];
   }
+
 }

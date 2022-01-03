@@ -50,9 +50,4 @@ public class NetWorkServer {
         new DefaultChannelInboundHandler());
   }
 
-  public static void main(String[] args) throws NetworkException {
-    NetWorkServer server = new NetWorkServer();
-    server.server(10900);
-  }
-
 }
