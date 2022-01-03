@@ -6,7 +6,6 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.EventLoop;
@@ -48,11 +47,10 @@ public class NettyServer {
     ServerBootstrap server = new ServerBootstrap().group(boss, worker)
         //为channelFactory设置构造方法,在bind方法去具体构建,反射对象.
         .channel(NioServerSocketChannel.class)
-        .option(ChannelOption.AUTO_CLOSE, true)
-        .option(ChannelOption.SO_BACKLOG, 4096)
+//        .option(ChannelOption.AUTO_CLOSE, true)
+//        .option(ChannelOption.SO_BACKLOG, 4096)
 //        .option(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator(4096,4096,4096))
 //        .option(ChannelOption.SO_RCVBUF,4096)
-        .childOption(ChannelOption.SO_TIMEOUT,2000)
         //设置worker的缓冲区
 //        .childOption(ChannelOption.SO_BACKLOG,4096)
         //handler 为 boss group 适配.

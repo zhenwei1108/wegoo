@@ -4,10 +4,8 @@ package com.github.zhenwei.network.netty.nio.client;
 import com.github.zhenwei.network.netty.nio.client.future.ClienMessageFuture;
 import com.github.zhenwei.network.netty.nio.client.future.ClientFutureHolder;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
@@ -27,14 +25,14 @@ public class NettyClient {
     Bootstrap client = new Bootstrap().group(group)
         .channel(NioSocketChannel.class)
         .handler(new LoggingHandler(LogLevel.DEBUG))
-        .option(ChannelOption.SO_KEEPALIVE, true)
-        .option(ChannelOption.AUTO_CLOSE, true)
-        //发送缓冲区大小, 内核参数: net.core.wmem_max
-        .option(ChannelOption.SO_SNDBUF,1024)
-        //禁用 Nagle算法
-        .option(ChannelOption.TCP_NODELAY,false)
-        //从缓冲区读取数据大小,自适应调整
-        .option(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator())
+//        .option(ChannelOption.SO_KEEPALIVE, true)
+//        .option(ChannelOption.AUTO_CLOSE, true)
+//        //发送缓冲区大小, 内核参数: net.core.wmem_max
+//        .option(ChannelOption.SO_SNDBUF,1024)
+//        //禁用 Nagle算法
+//        .option(ChannelOption.TCP_NODELAY,false)
+//        //从缓冲区读取数据大小,自适应调整
+//        .option(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator())
         .handler(
             new ChannelInitializer<NioSocketChannel>() {
               @Override
