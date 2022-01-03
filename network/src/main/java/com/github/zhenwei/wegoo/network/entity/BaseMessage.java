@@ -5,4 +5,7 @@ package com.github.zhenwei.wegoo.network.entity;
  */
 public abstract class BaseMessage {
 
+  //todo 参考redis 填入序列化方法.
+ public abstract byte[] getEncode();
+
 }

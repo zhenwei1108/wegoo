@@ -14,8 +14,12 @@ import io.netty.handler.codec.MessageToByteEncoder;
 @Sharable
 public class DefaultMessageToByteEncoder extends MessageToByteEncoder<BaseMessage> implements AbstractEncoder<BaseMessage>{
 
+  //todo 参考redis 填入序列化方法.
   @Override
   public void encode(ChannelHandlerContext ctx, BaseMessage msg, ByteBuf out) throws Exception {
+    byte[] message = msg.getEncode();
+    out.writeInt(message.length);
+    out.writeBytes(message);
     System.out.println(msg);
   }
 
