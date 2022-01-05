@@ -1,13 +1,16 @@
-package com.github.zhenwei.wegoo.network.netty.handler;
+package com.github.zhenwei.wegoo.network.netty.handler.decoder;
 
 import com.github.zhenwei.wegoo.network.entity.BaseMessage;
 import com.github.zhenwei.wegoo.network.entity.serialize.DefaultSerialize;
 import com.github.zhenwei.wegoo.network.entity.serialize.SerializeBean;
 import com.github.zhenwei.wegoo.network.entity.serialize.SerializeBean.SerializeMessage;
+import com.github.zhenwei.wegoo.network.netty.handler.AbstractDecoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
+import lombok.val;
+
 import java.util.List;
 
 /**
@@ -19,7 +22,7 @@ import java.util.List;
  */
 @Sharable
 public class DefaultByteToMessageDecoder extends ReplayingDecoder<Void> implements
-    AbstractDecoder<ByteBuf> {
+        AbstractDecoder<ByteBuf> {
 
   private SerializeMessage serializeMessage;
 
@@ -32,8 +35,8 @@ public class DefaultByteToMessageDecoder extends ReplayingDecoder<Void> implemen
    */
   @Override
   public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-    int bodyLen = in.readInt();
-    byte[] body = new byte[bodyLen];
+    val bodyLen = in.readInt();
+    val body = new byte[bodyLen];
     in.readBytes(body);
     SerializeBean.build(body, BaseMessage.class,
         serializeMessage == null ? new DefaultSerialize() : serializeMessage);

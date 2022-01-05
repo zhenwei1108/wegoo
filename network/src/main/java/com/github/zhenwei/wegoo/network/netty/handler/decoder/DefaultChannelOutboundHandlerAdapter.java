@@ -1,4 +1,4 @@
-package com.github.zhenwei.wegoo.network.netty.handler;
+package com.github.zhenwei.wegoo.network.netty.handler.decoder;
 
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 
