@@ -40,6 +40,6 @@ public class DefaultByteToMessageDecoder extends ReplayingDecoder<Void> implemen
     in.readBytes(body);
     SerializeBean.build(body, BaseMessage.class,
         serializeMessage == null ? new DefaultSerialize() : serializeMessage);
-    out.add(BaseMessage.seriaze(body));
+    out.add(BaseMessage.serialize(body));
   }
 }

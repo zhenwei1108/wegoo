@@ -1,5 +1,7 @@
 package com.github.zhenwei.wegoo.network.entity.serialize;
 
+import java.io.Serializable;
+
 /**
  * @description: 序列化
  * @author: zhangzhenwei
@@ -23,7 +25,7 @@ public class SerializeBean {
    * @author: zhangzhenwei
    * @date: 2022/1/3 21:30
    */
-  public interface SerializeMessage{
+  public interface SerializeMessage {
     /**
      * @param [msg, clazz]
      * @return T
