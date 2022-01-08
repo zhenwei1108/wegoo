@@ -3,7 +3,7 @@ package com.github.zhenwei.wegoo.network.entity.serialize;
 /**
  * @description: 序列化接口
  * @author: zhangzhenwei
- * @date: 2022/1/8 21:58
+ * @date: 2022/1/8 22:00
  */
 public interface SerializeHandler {
   /**
