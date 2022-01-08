@@ -16,9 +16,9 @@ import io.netty.util.concurrent.GenericFutureListener;
 public class NetWorkClient {
 
   private DefaultNettyProvider nettyProvider = new DefaultNettyProvider();
+
   /**
-   * @param [host, port, initializer, listener, level]
-   *    ip, port, 初始化实现, 端口绑定监听, 日志级别
+   * @param [host, port, initializer, listener, level] ip, port, 初始化实现, 端口绑定监听, 日志级别
    * @return void
    * @author zhangzhenwei
    * @description 客户端构造
@@ -36,7 +36,8 @@ public class NetWorkClient {
     nettyProvider.provide(host, port, initializer, listener, level);
   }
 
-  public void client(String host, int port,NettyChannelInitializer initializer) throws NetworkException {
+  public void client(String host, int port, NettyChannelInitializer initializer)
+      throws NetworkException {
     NettyProviderBindListener<ChannelPromise> listener = new NettyProviderBindListener<>();
     LogLevel level = NettyLoggerInfoAdapter.getLogLevel();
     nettyProvider.provide(host, port, initializer, listener, level);
