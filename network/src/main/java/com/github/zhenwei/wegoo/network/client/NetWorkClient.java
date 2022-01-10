@@ -1,13 +1,13 @@
 package com.github.zhenwei.wegoo.network.client;
 
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
-import com.github.zhenwei.wegoo.network.entity.serialize.DefaultSerializeHandler;
-import com.github.zhenwei.wegoo.network.entity.serialize.SerializeHandler;
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
 import com.github.zhenwei.wegoo.network.netty.consumer.NettyLoggerInfoAdapter;
 import com.github.zhenwei.wegoo.network.netty.listerner.NettyProviderBindListener;
 import com.github.zhenwei.wegoo.network.netty.provider.DefaultNettyProvider;
 import com.github.zhenwei.wegoo.network.netty.provider.DefaultProviderChannelInitializer;
+import com.github.zhenwei.wegoo.network.serialize.DefaultSerializer;
+import com.github.zhenwei.wegoo.network.serialize.NettySerializer;
 import io.netty.channel.ChannelPromise;
 import io.netty.handler.logging.LogLevel;
 import io.netty.util.concurrent.GenericFutureListener;
@@ -27,8 +27,9 @@ public class NetWorkClient {
    * @date 2021/12/26 21:40
    */
   public void client(String host, int port, NettyChannelInitializer initializer,
-      GenericFutureListener<ChannelPromise> listener, SerializeHandler serializeHandler,
+      GenericFutureListener<ChannelPromise> listener, NettySerializer serializer,
       LogLevel level) throws NetworkException {
+    //todo 序列化实现方式
     nettyProvider.provide(host, port, initializer, listener, level);
   }
 
@@ -36,7 +37,7 @@ public class NetWorkClient {
     DefaultProviderChannelInitializer initializer = new DefaultProviderChannelInitializer();
     NettyProviderBindListener<ChannelPromise> listener = new NettyProviderBindListener<>();
     LogLevel level = NettyLoggerInfoAdapter.getLogLevel();
-    DefaultSerializeHandler serializeHandler = new DefaultSerializeHandler();
+    DefaultSerializer serializeHandler = new DefaultSerializer();
     client(host, port, initializer, listener, serializeHandler, level);
   }
 
@@ -44,7 +45,7 @@ public class NetWorkClient {
       throws NetworkException {
     NettyProviderBindListener<ChannelPromise> listener = new NettyProviderBindListener<>();
     LogLevel level = NettyLoggerInfoAdapter.getLogLevel();
-    DefaultSerializeHandler serializeHandler = new DefaultSerializeHandler();
+    DefaultSerializer serializeHandler = new DefaultSerializer();
     client(host, port, initializer, listener, serializeHandler, level);
   }
 
