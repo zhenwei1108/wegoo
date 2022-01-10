@@ -12,3 +12,7 @@ Mainly to learn [netty](https://github.com/zhenwei1108/netty.git) and assist oth
 2. 使用proto试图抽象调用.
 3. 普遍协议支持.
 4. ...
+
+
+## 旁路知识
+1. 序列化: [proto buffer](https://developers.google.cn/protocol-buffers)
