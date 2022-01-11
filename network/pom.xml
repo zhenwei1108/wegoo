@@ -27,7 +27,6 @@
       <version>${wegoo.version}</version>
     </dependency>
 
-
   </dependencies>
 
 </project>

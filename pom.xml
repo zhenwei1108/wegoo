@@ -27,32 +27,36 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>${gson.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
       <version>${netty.all.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
       <version>${protobuf.version}</version>
+      <optional>true</optional>
     </dependency>
 
   </dependencies>
 
 
   <modules>
-    <module>network</module>
     <module>common</module>
+    <module>network</module>
 
   </modules>
 
