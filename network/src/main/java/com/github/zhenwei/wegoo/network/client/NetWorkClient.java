@@ -6,7 +6,7 @@ import com.github.zhenwei.wegoo.network.netty.consumer.NettyLoggerInfoAdapter;
 import com.github.zhenwei.wegoo.network.netty.listerner.NettyProviderBindListener;
 import com.github.zhenwei.wegoo.network.netty.provider.DefaultNettyProvider;
 import com.github.zhenwei.wegoo.network.netty.provider.DefaultProviderChannelInitializer;
-import com.github.zhenwei.wegoo.network.serialize.DefaultSerializer;
+import com.github.zhenwei.wegoo.network.serialize.DefaultProtobufSerializer;
 import com.github.zhenwei.wegoo.network.serialize.NettySerializer;
 import io.netty.channel.ChannelPromise;
 import io.netty.handler.logging.LogLevel;
@@ -37,7 +37,7 @@ public class NetWorkClient {
     DefaultProviderChannelInitializer initializer = new DefaultProviderChannelInitializer();
     NettyProviderBindListener<ChannelPromise> listener = new NettyProviderBindListener<>();
     LogLevel level = NettyLoggerInfoAdapter.getLogLevel();
-    DefaultSerializer serializeHandler = new DefaultSerializer();
+    DefaultProtobufSerializer serializeHandler = new DefaultProtobufSerializer(null);
     client(host, port, initializer, listener, serializeHandler, level);
   }
 
@@ -45,7 +45,7 @@ public class NetWorkClient {
       throws NetworkException {
     NettyProviderBindListener<ChannelPromise> listener = new NettyProviderBindListener<>();
     LogLevel level = NettyLoggerInfoAdapter.getLogLevel();
-    DefaultSerializer serializeHandler = new DefaultSerializer();
+    DefaultProtobufSerializer serializeHandler = new DefaultProtobufSerializer(null);
     client(host, port, initializer, listener, serializeHandler, level);
   }
 

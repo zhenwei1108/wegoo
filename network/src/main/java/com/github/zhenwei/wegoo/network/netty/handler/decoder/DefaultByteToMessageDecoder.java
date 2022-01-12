@@ -1,6 +1,5 @@
 package com.github.zhenwei.wegoo.network.netty.handler.decoder;
 
-import com.github.zhenwei.wegoo.network.entity.BaseMessage;
 import com.github.zhenwei.wegoo.network.netty.handler.AbstractDecoder;
 import com.github.zhenwei.wegoo.network.serialize.NettySerializer;
 import io.netty.buffer.ByteBuf;
@@ -17,8 +16,8 @@ import lombok.val;
  * 方法
  */
 @Sharable
-public class DefaultByteToMessageDecoder extends  AbstractDecoder<ByteBuf> {
-
+public class DefaultByteToMessageDecoder extends AbstractDecoder<ByteBuf> {
+  //todo 何时填充
   private NettySerializer serializer;
 
   /**
@@ -33,7 +32,6 @@ public class DefaultByteToMessageDecoder extends  AbstractDecoder<ByteBuf> {
     val bodyLen = in.readInt();
     val body = new byte[bodyLen];
     in.readBytes(body);
-    Object deserialize = serializer.deserialize(body);
-    out.add(BaseMessage.serialize(body));
+    out.add(serializer.deserialize(body));
   }
 }

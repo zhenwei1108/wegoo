@@ -11,18 +11,17 @@ import lombok.AllArgsConstructor;
  * @date: 2022/1/8 22:02
  */
 @AllArgsConstructor
-public class DefaultSerializer<T extends MessageLite> implements NettySerializer<T> {
+public class DefaultProtobufSerializer implements NettySerializer<MessageLite> {
 
   private final MessageLite prototype;
 
   @Override
-  public byte[] serialize(T o) throws Exception {
-
-    return new byte[0];
+  public byte[] serialize(MessageLite e) throws Exception {
+    return e.toByteArray();
   }
 
   @Override
-  public T deserialize(byte[] bytes) throws Exception {
-    return (T) prototype.getParserForType().parseFrom(bytes);
+  public MessageLite deserialize(byte[] bytes) throws Exception {
+    return prototype.getParserForType().parseFrom(bytes);
   }
 }
