@@ -1,4 +1,4 @@
-package com.github.zhenwei.wegoo.network.serialize;
+package com.github.zhenwei.wegoo.network.netty.serialize;
 
 
 import com.google.protobuf.MessageLite;

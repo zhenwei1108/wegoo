@@ -1,7 +1,7 @@
 package com.github.zhenwei.wegoo.network.netty.handler.decoder;
 
 import com.github.zhenwei.wegoo.network.netty.handler.AbstractDecoder;
-import com.github.zhenwei.wegoo.network.serialize.NettySerializer;
+import com.github.zhenwei.wegoo.network.netty.serialize.NettySerializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;

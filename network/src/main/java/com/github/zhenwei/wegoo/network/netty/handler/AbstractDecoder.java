@@ -1,6 +1,6 @@
 package com.github.zhenwei.wegoo.network.netty.handler;
 
-import com.github.zhenwei.wegoo.network.serialize.NettySerializer;
+import com.github.zhenwei.wegoo.network.netty.serialize.NettySerializer;
 import io.netty.handler.codec.ReplayingDecoder;
 import lombok.Data;
 

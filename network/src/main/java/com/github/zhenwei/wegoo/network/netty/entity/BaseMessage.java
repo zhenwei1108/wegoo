@@ -1,4 +1,4 @@
-package com.github.zhenwei.wegoo.network.entity;
+package com.github.zhenwei.wegoo.network.netty.entity;
 
 import com.google.protobuf.MessageLite;
 import java.io.Serializable;

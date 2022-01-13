@@ -1,4 +1,4 @@
-package com.github.zhenwei.wegoo.network.thread;
+package com.github.zhenwei.wegoo.network.netty.thread;
 
 import io.netty.util.concurrent.DefaultThreadFactory;
 import java.util.concurrent.LinkedBlockingQueue;

@@ -1,11 +1,13 @@
-package com.github.zhenwei.wegoo.network.client;
+package com.github.zhenwei.wegoo.network.netty.client;
 
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
+import com.github.zhenwei.wegoo.network.netty.BaseNetty;
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
 import com.github.zhenwei.wegoo.network.netty.consumer.NettyLoggerInfoAdapter;
 import com.github.zhenwei.wegoo.network.netty.listerner.NettyProviderBindListener;
 import com.github.zhenwei.wegoo.network.netty.provider.DefaultNettyProvider;
 import com.github.zhenwei.wegoo.network.netty.provider.DefaultProviderChannelInitializer;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelPromise;
 import io.netty.handler.logging.LogLevel;
 import io.netty.util.concurrent.GenericFutureListener;
@@ -13,9 +15,10 @@ import io.netty.util.concurrent.GenericFutureListener;
 /**
  * 客户端
  */
-public class NetWorkClient {
+public class NetWorkClient<T> implements BaseNetty<T> {
 
   private final DefaultNettyProvider nettyProvider = new DefaultNettyProvider();
+  private ChannelFuture future;
 
   /**
    * @param [host, port, initializer, listener, level] ip, port, 初始化实现, 端口绑定监听, 日志级别
@@ -29,7 +32,7 @@ public class NetWorkClient {
     if (initializer == null) {
       initializer = new DefaultProviderChannelInitializer();
     }
-    nettyProvider.provide(host, port, initializer, listener, level);
+    future = nettyProvider.provide(host, port, initializer, listener, level);
   }
 
   public NetWorkClient(String host, int port) throws NetworkException {
@@ -44,5 +47,13 @@ public class NetWorkClient {
   }
 
 
+  @Override
+  public void send(T t) {
 
+  }
+
+  @Override
+  public T read() {
+    return null;
+  }
 }

@@ -25,20 +25,22 @@ public abstract class NettyProvider {
    *
    * @param initializer
    */
-  public void provide(String host, int port, ChannelInitializer<SocketChannel> initializer,
+  public ChannelFuture provide(String host, int port, ChannelInitializer<SocketChannel> initializer,
       GenericFutureListener<ChannelPromise> listener, LogLevel level) throws NetworkException {
     try {
       val worker = new NioEventLoopGroup(1);
       val bootstrap = new Bootstrap();
       ChannelFuture future = options(bootstrap).group(worker).channel(NioSocketChannel.class)
           .handler(new LoggingHandler(level))
-          .handler(initializer).bind(host, port).sync();
+          .handler(initializer).connect(host, port).sync();
       if (listener!=null){
         future.addListener(listener);
       }
+      return future;
     } catch (Exception e) {
       throw new NetworkException(NetworkExceptionEnum.CLIENT_BIND_ERR, e);
     }
+
   }
 
 

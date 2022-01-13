@@ -1,7 +1,8 @@
-package com.github.zhenwei.wegoo.network.server;
+package com.github.zhenwei.wegoo.network.netty.server;
 
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
-import com.github.zhenwei.wegoo.network.entity.ObjectMessage;
+import com.github.zhenwei.wegoo.network.netty.BaseNetty;
+import com.github.zhenwei.wegoo.network.netty.entity.ObjectMessage;
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
 import com.github.zhenwei.wegoo.network.netty.consumer.DefaultConsumerChannelInitializer;
 import com.github.zhenwei.wegoo.network.netty.consumer.DefaultNettyConsumer;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 /**
  * 服务端
  */
-public class NetWorkServer {
+public class NetWorkServer<T> implements BaseNetty<T> {
 
   private DefaultNettyConsumer defaultConsumer = new DefaultNettyConsumer();
 
@@ -50,4 +51,13 @@ public class NetWorkServer {
         new DefaultChannelInboundHandler());
   }
 
+  @Override
+  public void send(T t) {
+
+  }
+
+  @Override
+  public T read() {
+    return null;
+  }
 }

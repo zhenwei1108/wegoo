@@ -1,6 +1,6 @@
 package com.github.zhenwei.wegoo.network.netty.handler;
 
-import com.github.zhenwei.wegoo.network.entity.BaseMessage;
+import com.github.zhenwei.wegoo.network.netty.entity.BaseMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandler;
