@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * @description: 使用proto实现
  * @author: zhangzhenwei
- * @date: 2022/1/12 22:11
+ * @date: 2022/1/13 09:28
  */
 public class ObjectMessage extends BaseMessage implements Serializable {
 

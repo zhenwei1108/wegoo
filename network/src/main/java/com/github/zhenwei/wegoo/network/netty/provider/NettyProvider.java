@@ -3,6 +3,7 @@ package com.github.zhenwei.wegoo.network.netty.provider;
 import com.github.zhenwei.wegoo.common.enums.NetworkExceptionEnum;
 import com.github.zhenwei.wegoo.common.exception.NetworkException;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -29,9 +30,12 @@ public abstract class NettyProvider {
     try {
       val worker = new NioEventLoopGroup(1);
       val bootstrap = new Bootstrap();
-      options(bootstrap).group(worker).channel(NioSocketChannel.class)
+      ChannelFuture future = options(bootstrap).group(worker).channel(NioSocketChannel.class)
           .handler(new LoggingHandler(level))
-          .handler(initializer).bind(host, port).sync().addListener(listener);
+          .handler(initializer).bind(host, port).sync();
+      if (listener!=null){
+        future.addListener(listener);
+      }
     } catch (Exception e) {
       throw new NetworkException(NetworkExceptionEnum.CLIENT_BIND_ERR, e);
     }
