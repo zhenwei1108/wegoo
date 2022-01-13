@@ -49,11 +49,11 @@ public class NetWorkClient<T> implements BaseNetty<T> {
 
   @Override
   public void send(T t) {
-
+    future.channel().writeAndFlush(t);
   }
 
   @Override
-  public T read() {
-    return null;
+  public void close() {
+    future.channel().close();
   }
 }
