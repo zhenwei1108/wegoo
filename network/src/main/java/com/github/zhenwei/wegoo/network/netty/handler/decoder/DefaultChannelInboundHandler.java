@@ -1,4 +1,4 @@
-package com.github.zhenwei.wegoo.network.netty.handler.encoder;
+package com.github.zhenwei.wegoo.network.netty.handler.decoder;
 
 import com.github.zhenwei.wegoo.network.netty.entity.BaseMessage;
 import io.netty.channel.ChannelHandler.Sharable;

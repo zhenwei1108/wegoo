@@ -1,6 +1,7 @@
 package com.github.zhenwei.wegoo.network.netty.provider;
 
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
+import com.github.zhenwei.wegoo.network.netty.handler.encoder.DefaultMessageToByteEncoder;
 import io.netty.channel.ChannelPipeline;
 
 /**
@@ -13,6 +14,7 @@ public class DefaultProviderChannelInitializer extends NettyChannelInitializer {
 
   @Override
   protected void init(ChannelPipeline pipeline) throws Exception {
+    pipeline.addLast(new DefaultMessageToByteEncoder());
     //do nothing
   }
 }

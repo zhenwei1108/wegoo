@@ -8,7 +8,7 @@ import com.github.zhenwei.wegoo.network.netty.consumer.NettyLoggerInfoAdapter;
 import com.github.zhenwei.wegoo.network.netty.entity.ObjectMessage;
 import com.github.zhenwei.wegoo.network.netty.handler.decoder.DefaultByteToMessageDecoder;
 import com.github.zhenwei.wegoo.network.netty.handler.decoder.DefaultMessageToMessageDecoder;
-import com.github.zhenwei.wegoo.network.netty.handler.encoder.DefaultChannelInboundHandler;
+import com.github.zhenwei.wegoo.network.netty.handler.decoder.DefaultChannelInboundHandler;
 import com.github.zhenwei.wegoo.network.netty.listerner.NettyConsumerStartListener;
 import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelPromise;

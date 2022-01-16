@@ -14,12 +14,12 @@ import lombok.val;
  * @date: 2021/12/26 21:54
  */
 @Sharable
-public class DefaultMessageToByteEncoder extends MessageToByteEncoder<BaseMessage> implements AbstractEncoder<BaseMessage> {
+public class DefaultMessageToByteEncoder extends MessageToByteEncoder<BaseMessage> implements AbstractEncoder {
 
   //todo 参考redis 填入序列化方法.
   @Override
   public void encode(ChannelHandlerContext ctx, BaseMessage msg, ByteBuf out) throws Exception {
-    val message = msg.getEncode();
+    val message = msg.toByteArray();
     out.writeInt(message.length);
     out.writeBytes(message);
   }
