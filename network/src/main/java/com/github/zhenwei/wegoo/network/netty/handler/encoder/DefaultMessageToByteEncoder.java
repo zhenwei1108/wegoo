@@ -1,7 +1,7 @@
 package com.github.zhenwei.wegoo.network.netty.handler.encoder;
 
 import com.github.zhenwei.wegoo.network.netty.entity.BaseMessage;
-import com.github.zhenwei.wegoo.network.netty.handler.AbstractEncoder;
+import com.github.zhenwei.wegoo.network.netty.handler.BaseMessageEncoderInterface;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -14,9 +14,9 @@ import lombok.val;
  * @date: 2021/12/26 21:54
  */
 @Sharable
-public class DefaultMessageToByteEncoder extends MessageToByteEncoder<BaseMessage> implements AbstractEncoder {
+public class DefaultMessageToByteEncoder extends MessageToByteEncoder<BaseMessage> implements
+    BaseMessageEncoderInterface {
 
-  //todo 参考redis 填入序列化方法.
   @Override
   public void encode(ChannelHandlerContext ctx, BaseMessage msg, ByteBuf out) throws Exception {
     val message = msg.toByteArray();

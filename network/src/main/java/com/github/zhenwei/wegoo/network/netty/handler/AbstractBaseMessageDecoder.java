@@ -5,7 +5,7 @@ import io.netty.handler.codec.ReplayingDecoder;
 import lombok.Data;
 
 @Data
-public abstract class AbstractDecoder<T> extends ReplayingDecoder<Void> {
+public abstract class AbstractBaseMessageDecoder<T> extends ReplayingDecoder<Void> {
 
   private NettySerializer<T> serializer;
 

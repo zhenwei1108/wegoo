@@ -2,7 +2,7 @@ package com.github.zhenwei.wegoo.network.netty.consumer;
 
 import com.github.zhenwei.wegoo.common.util.ArraysUtil;
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
-import com.github.zhenwei.wegoo.network.netty.handler.AbstractDecoder;
+import com.github.zhenwei.wegoo.network.netty.handler.AbstractBaseMessageDecoder;
 import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.ipfilter.IpFilterRule;
@@ -37,7 +37,7 @@ public class DefaultConsumerChannelInitializer extends NettyChannelInitializer {
       Iterator<ChannelInboundHandler> handlerIterator = Arrays.stream(handlers).iterator();
       while (handlerIterator.hasNext()) {
         ChannelInboundHandler handler = handlerIterator.next();
-        if (handler instanceof AbstractDecoder) {
+        if (handler instanceof AbstractBaseMessageDecoder) {
           pipeline.addLast(handler);
 //          handlerIterator.remove();
         }
