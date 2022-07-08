@@ -8,9 +8,9 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+
 import java.util.concurrent.TimeUnit;
 
 public class NettyClient {
@@ -40,7 +40,7 @@ public class NettyClient {
                 channel.pipeline()
                     .addLast(
                         //使用protobuf传输对象
-                        new ProtobufEncoder(),
+//                        new ProtobufEncoder(),
                         //输出 处理
                         new ClientMessageEncoderHandler(),
                         //输入 处理
@@ -92,5 +92,7 @@ public class NettyClient {
     }
     return message;
   }
+
+
 
 }

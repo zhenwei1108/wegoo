@@ -14,7 +14,7 @@ public class ClientMessageDecoderHandler extends ByteToMessageDecoder {
   protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
     int readLen = in.readableBytes();
     if (readLen > 0) {
-      System.out.println("i'm decoder");
+      System.out.println("i'm decoder:" + readLen);
       byte[] data = new byte[readLen];
       in.readBytes(data);
       ClientFutureHolder.success(NettyClient.FUTURE_KEY, new String(data, StandardCharsets.UTF_8));

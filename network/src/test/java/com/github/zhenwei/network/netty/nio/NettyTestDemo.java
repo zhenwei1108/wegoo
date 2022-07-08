@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class NettyTestDemo {
 
-  int port = 10900;
+  int port = 17167;
 
   @Test
   public void server() throws InterruptedException {
@@ -22,7 +22,7 @@ public class NettyTestDemo {
     for (int i = 0; i < 10; i++) {
       data.append(data);
     }
-    String message = nettyClient.build("localhost", port).sendMessage(data.toString()).readMessage();
+    String message = nettyClient.build("192.168.218.88", port).sendMessage(data.toString()).readMessage();
     System.out.println("客户端收到应答:" + message);
     nettyClient.close();
 
