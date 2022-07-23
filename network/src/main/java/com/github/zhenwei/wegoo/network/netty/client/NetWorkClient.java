@@ -56,4 +56,9 @@ public class NetWorkClient<T> implements BaseNetty<T> {
   public void close() {
     future.channel().close();
   }
+
+  @Override
+  public byte[] read() {
+    return new byte[0];
+  }
 }

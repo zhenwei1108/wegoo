@@ -11,5 +11,6 @@ public interface BaseNetty<T> {
 
   void close();
 
+  byte[] read();
 
 }
