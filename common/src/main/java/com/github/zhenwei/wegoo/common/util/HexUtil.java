@@ -1,16 +1,15 @@
 package com.github.zhenwei.wegoo.common.util;
 
-public class HexUtil {
-    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
+import com.github.zhenwei.core.util.encoders.Hex;
 
-    public static String toString(byte[] data) {
-        StringBuilder r = new StringBuilder(data.length * 2);
-        for (byte b : data) {
-            r.append(hexCode[(b >> 4) & 0xF]);
-            r.append(hexCode[(b & 0xF)]);
-        }
-        return r.toString();
+public class HexUtil {
+
+    public static String toHexString(byte[] data) {
+        return Hex.toHexString(data);
     }
 
+    public static byte[] decode(String data){
+        return Hex.decode(data);
+    }
 
 }

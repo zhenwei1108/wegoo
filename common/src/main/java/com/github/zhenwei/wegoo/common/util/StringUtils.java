@@ -11,7 +11,7 @@ public class StringUtils {
    * @date 2021/12/28 23:00
    */
   public static boolean isEmpty(String msg) {
-    return msg == null || msg.length() == 0;
+    return com.github.zhenwei.sdk.util.StringUtils.isEmpty(msg);
   }
 
   /**
@@ -22,6 +22,6 @@ public class StringUtils {
    * @date 2021/12/28 23:00
    */
   public static boolean isBlank(String msg) {
-    return isEmpty(msg) || msg.trim().length() == 0;
+    return com.github.zhenwei.sdk.util.StringUtils.isBlank(msg);
   }
 }
