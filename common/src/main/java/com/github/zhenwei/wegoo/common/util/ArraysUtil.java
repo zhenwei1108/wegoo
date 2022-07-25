@@ -9,13 +9,20 @@ public class ArraysUtil {
         return objects == null || objects.length == 0;
     }
 
+    public static boolean isEmpty(byte[] data) {
+        return BytesUtil.isEmpty(data);
+    }
+
+    public static boolean notEmpty(byte[] data) {
+        return !isEmpty(data);
+    }
+
     public static boolean notEmpty(Object[] objects) {
         return !isEmpty(objects);
     }
 
     public static byte[] merge(byte[]... datas) {
-       return BytesUtil.mergeBytes(datas);
+        return BytesUtil.mergeBytes(datas);
     }
-
 
 }
