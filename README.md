@@ -1,13 +1,18 @@
 # wegoo
+`类似数据安全网关，可以对服务所有出入的报文进行加解密。`
 
-one sdk, something about network.
-实现透明加解密。 
-类似网关，对服务所有出入的报文进行加解密。
-类似ssl通道。
+数据安全的保护力度越来越大,顺应潮流写点自己感兴趣的东西,顺道自我学习.
+
+## one sdk, something about network.
+核心为三个模块,① 网络通信模块. ② 数据保护模块. ③综合处理模块.
+1. 网络通信模块:负责数据解析和封装,简化和完善网络调用.
+2. 数据保护模块:负责数据拆封箱,保证数据的完整性,安全性,防篡改.
+3. 综合处理模块:负责各种系统配置及定义标准的使用逻辑.
 
 
 ## basic 
-Mainly to learn [netty](https://github.com/zhenwei1108/netty.git) and assist other network knowledge.
+1. 网络通信模块由: [netty](https://github.com/zhenwei1108/netty.git) 实现.
+2. 数据保护模块由: [java-bc(bouncycastle)](https://github.com/zhenwei1108/bc-java.git) 实现 
 
 
 
