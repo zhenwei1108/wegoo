@@ -5,23 +5,18 @@
   <parent>
     <artifactId>wegoo</artifactId>
     <groupId>com.github.zhenwei</groupId>
-    <version>1.0.0</version>
+    <version>${project.version}</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>common</artifactId>
 
   <dependencies>
-    <dependency>
-      <groupId>com.github.zhenwei</groupId>
-      <artifactId>LinLong-Java</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
 
     <dependency>
       <groupId>com.github.zhenwei</groupId>
       <artifactId>crypto-sdk</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>${LinLong.version}</version>
     </dependency>
 
   </dependencies>

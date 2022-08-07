@@ -7,7 +7,7 @@
   <parent>
     <groupId>com.github.zhenwei</groupId>
     <artifactId>wegoo</artifactId>
-    <version>1.0.0</version>
+    <version>${project.version}</version>
   </parent>
 
   <artifactId>network</artifactId>
@@ -24,7 +24,7 @@
     <dependency>
       <groupId>com.github.zhenwei</groupId>
       <artifactId>common</artifactId>
-      <version>${wegoo.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
   </dependencies>
