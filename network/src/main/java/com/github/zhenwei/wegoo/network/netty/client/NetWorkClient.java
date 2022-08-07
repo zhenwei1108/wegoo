@@ -5,7 +5,7 @@ import com.github.zhenwei.wegoo.network.netty.BaseNetty;
 import com.github.zhenwei.wegoo.network.netty.NettyChannelInitializer;
 import com.github.zhenwei.wegoo.network.netty.consumer.NettyLoggerInfoAdapter;
 import com.github.zhenwei.wegoo.network.netty.listerner.NettyProviderBindListener;
-import com.github.zhenwei.wegoo.network.netty.provider.DefaultNettyProvider;
+import com.github.zhenwei.wegoo.network.netty.provider.DefaultNettyClientProvider;
 import com.github.zhenwei.wegoo.network.netty.provider.DefaultProviderChannelInitializer;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelPromise;
@@ -17,7 +17,7 @@ import io.netty.util.concurrent.GenericFutureListener;
  */
 public class NetWorkClient<T> implements BaseNetty<T> {
 
-  private final DefaultNettyProvider nettyProvider = new DefaultNettyProvider();
+  private final DefaultNettyClientProvider nettyProvider = new DefaultNettyClientProvider();
   private ChannelFuture future;
 
   /**

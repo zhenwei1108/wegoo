@@ -9,7 +9,7 @@ import io.netty.channel.ChannelOption;
  * @author: zhangzhenwei
  * @date: 2021/12/24 23:46
  */
-public class DefaultNettyProvider extends NettyProvider {
+public class DefaultNettyClientProvider extends NettyProvider {
 
   @Override
   public void option(Bootstrap bootstrap) {
