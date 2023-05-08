@@ -70,7 +70,7 @@
     <repository>
       <id>github</id>
       <name>GitHub OWNER Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/zhenwei1108/public</url>
+      <url>https://maven.pkg.github.com/zhenwei1108/wegoo</url>
     </repository>
   </distributionManagement>
 
@@ -110,7 +110,7 @@
           </execution>
         </executions>
       </plugin>
-      <!-- maven 版本自动站位 插件-->
+      <!-- maven 版本自动占位 插件-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>
